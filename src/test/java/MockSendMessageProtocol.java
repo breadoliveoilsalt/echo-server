@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class SendMessageProtocolSpy implements ConnectionProtocol {
+public class MockSendMessageProtocol implements ConnectionProtocol {
 
     @Override
     public void handleConnection(Sokket socket) throws IOException {

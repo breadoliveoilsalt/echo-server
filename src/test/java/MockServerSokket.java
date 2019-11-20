@@ -1,12 +1,12 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ServerSokketSpy extends ServerSokket {
+public class MockServerSokket extends ServerSokket {
 
     private ArrayList<String> methodLog;
     private int portAssigned;
 
-    ServerSokketSpy() {
+    MockServerSokket() {
         this.methodLog = new ArrayList<String>();
     }
 
@@ -18,7 +18,7 @@ public class ServerSokketSpy extends ServerSokket {
 
     public Sokket acceptConnectionAndReturnConnectedSocket() throws IOException {
         methodLog.add("acceptConnectionAndReturnConnectedSocket()");
-        return new SokketSpy();
+        return new MockSokket();
     }
 
     public void close() throws IOException {

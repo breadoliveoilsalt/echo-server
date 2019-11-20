@@ -1,12 +1,12 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class SokketSpy extends Sokket {
+public class MockSokket extends Sokket {
 
     private ArrayList<String> methodLog;
     private String messageSent;
 
-    SokketSpy() {
+    MockSokket() {
         this.methodLog = new ArrayList<String>();
     }
 

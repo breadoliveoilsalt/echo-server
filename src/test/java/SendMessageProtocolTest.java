@@ -9,29 +9,30 @@ import java.io.IOException;
 
 public class SendMessageProtocolTest {
 
-    Sokket sokketSpy;
+    Sokket mockSokket;
     ConnectionProtocol testedProtocol;
 
     @Before
     public void init() {
-        this.sokketSpy = new SokketSpy();
+        this.mockSokket = new MockSokket();
         this.testedProtocol = new SendMessageProtocol();
     }
 
     @After
     public void tearDown() {
-        this.sokketSpy = null;
+        this.mockSokket = null;
         this.testedProtocol = null;
     }
 
     @Test public void testHandleConnectionSendsHeyThereToSocketOutputStream() throws IOException {
-        testedProtocol.handleConnection(sokketSpy);
-        assertThat(((SokketSpy) sokketSpy).methodLog(), hasItems("sendToOutputStream()"));
-        assertSame(((SokketSpy) sokketSpy).messageSent(), "Hey there");
+        testedProtocol.handleConnection(mockSokket);
+        assertThat(((MockSokket) mockSokket).methodLog(), hasItems("sendToOutputStream()"));
+        assertSame(((MockSokket) mockSokket).messageSent(), "Hey there");
     }
 
     @Test public void testHandleConnectionClosesTheSocket() throws IOException {
-        testedProtocol.handleConnection(sokketSpy);
-        assertThat(((SokketSpy) sokketSpy).methodLog(), hasItems("close()"));
+        testedProtocol.handleConnection(mockSokket);
+        assertThat(((MockSokket) mockSokket).methodLog(), hasItems("close()"));
     }
+
 }
