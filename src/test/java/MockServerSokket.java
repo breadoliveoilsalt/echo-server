@@ -5,6 +5,7 @@ public class MockServerSokket extends ServerSokket {
 
     private ArrayList<String> methodLog;
     private int portAssigned;
+    private Sokket mockConnectedSokket = null;
 
     MockServerSokket() {
         this.methodLog = new ArrayList<String>();
@@ -16,9 +17,9 @@ public class MockServerSokket extends ServerSokket {
         return this;
     }
 
-    public Sokket acceptConnectionAndReturnConnectedSocket() throws IOException {
-        methodLog.add("acceptConnectionAndReturnConnectedSocket()");
-        return new MockSokket();
+    public Sokket acceptConnectionAndReturnConnectedSokket() throws IOException {
+        methodLog.add("acceptConnectionAndReturnConnectedSokket()");
+        return mockConnectedSokket;
     }
 
     public void close() throws IOException {
@@ -33,5 +34,8 @@ public class MockServerSokket extends ServerSokket {
         return portAssigned;
     }
 
+    public void setMockSokketToReturn(Sokket sokket) {
+        mockConnectedSokket = sokket;
+    }
 }
 

@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class SendMessageProtocolTest {
 
-    Sokket mockSokket;
+    MockSokket mockSokket;
     ConnectionProtocol testedProtocol;
 
     @Before
@@ -24,15 +24,17 @@ public class SendMessageProtocolTest {
         this.testedProtocol = null;
     }
 
-    @Test public void testHandleConnectionSendsHeyThereToSocketOutputStream() throws IOException {
+    @Test public void testHandleConnectionSendsHeyThereToSokketOutputStream() throws IOException {
         testedProtocol.handleConnection(mockSokket);
-        assertThat(((MockSokket) mockSokket).methodLog(), hasItems("sendToOutputStream()"));
-        assertSame(((MockSokket) mockSokket).messageSent(), "Hey there");
+
+        assertThat(mockSokket.methodLog(), hasItems("sendToOutputStream()"));
+        assertSame(mockSokket.messageSent(), "Hey there");
     }
 
-    @Test public void testHandleConnectionClosesTheSocket() throws IOException {
+    @Test public void testHandleConnectionClosesTheSokket() throws IOException {
         testedProtocol.handleConnection(mockSokket);
-        assertThat(((MockSokket) mockSokket).methodLog(), hasItems("close()"));
+
+        assertThat(mockSokket.methodLog(), hasItems("close()"));
     }
 
 }

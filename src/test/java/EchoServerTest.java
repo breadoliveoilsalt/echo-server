@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.hasItems;
 public class EchoServerTest {
 
     int samplePort = 8000;
-    ServerSokket mockServerSokket;
+    MockServerSokket mockServerSokket;
     ConnectionProtocol mockSendMessageProtocol;
 
     @Before
@@ -25,16 +25,26 @@ public class EchoServerTest {
         this.mockSendMessageProtocol = null;
     }
 
-    @Test public void testRunBindsTheServerSocketToAPort() throws IOException {
+    @Test public void testRunBindsTheServerSokketToAPort() throws IOException {
         EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
 
-        assertThat((((MockServerSokket) mockServerSokket).methodLog()), hasItems("establishAndListenAtPort()"));
-        assertEquals((((MockServerSokket) mockServerSokket).portAssigned()), samplePort);
+        assertThat(mockServerSokket.methodLog(), hasItems("establishAndListenAtPort()"));
+        assertEquals(mockServerSokket.portAssigned(), samplePort);
     }
 
-    @Test public void testRunTellsServerSocketToReturnAConnectedSocketUponConnection() throws IOException {
+    @Test public void testRunTellsServerSokketToReturnAConnectedSokketUponConnection() throws IOException {
         EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
-        assertThat((((MockServerSokket) mockServerSokket).methodLog()), hasItems("acceptConnectionAndReturnConnectedSocket()"));
+
+        assertThat(mockServerSokket.methodLog(), hasItems("acceptConnectionAndReturnConnectedSokket()"));
+    }
+
+    @Test public void testRunPassesTheConnectedSokketToTheProtocolToHandle() throws IOException {
+        MockSokket expectedMockSokketArgument = new MockSokket();
+        mockServerSokket.setMockSokketToReturn(expectedMockSokketArgument);
+
+        EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
+// running into problem with interface declaring a certain thing needs to be passed in...a certain type of thing...
+        assertSame(expectedMockSokketArgument, mockSendMessageProtocol.getSokket());
     }
 
 }

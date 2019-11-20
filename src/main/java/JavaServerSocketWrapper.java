@@ -10,7 +10,7 @@ public class JavaServerSocketWrapper extends ServerSokket {
         return this;
     }
 
-    public Sokket acceptConnectionAndReturnConnectedSocket() throws IOException {
+    public Sokket acceptConnectionAndReturnConnectedSokket() throws IOException {
         return new JavaSocketWrapper(serverSocket.accept());
     }
 

@@ -1,10 +1,10 @@
 import java.io.IOException;
 
-public class SendMessageProtocol implements ConnectionProtocol {
+public class SendMessageProtocol extends ConnectionProtocol {
 
-    public void handleConnection(Sokket socket) throws IOException {
-        socket.sendToOutputStream("Hey there");
-        socket.close();
+    public void handleConnection(Sokket sokket) throws IOException {
+        sokket.sendToOutputStream("Hey there");
+        sokket.close();
     }
 
 }

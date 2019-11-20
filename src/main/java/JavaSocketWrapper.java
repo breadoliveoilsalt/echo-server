@@ -12,11 +12,6 @@ public class JavaSocketWrapper extends Sokket {
         this.socket = socket;
     }
 
-    public String readInputStream() throws IOException {
-        return new BufferedReader(
-                new InputStreamReader(socket.getInputStream())).readLine();
-    }
-
     public void sendToOutputStream(String message) throws IOException {
         new PrintWriter(socket.getOutputStream(), true).println(message);
     }

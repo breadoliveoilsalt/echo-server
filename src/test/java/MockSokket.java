@@ -11,19 +11,13 @@ public class MockSokket extends Sokket {
     }
 
     @Override
-    String readInputStream() throws IOException {
-        methodLog.add("readInputStream()");
-        return "";
-    }
-
-    @Override
-    void sendToOutputStream(String message) throws IOException {
+    public void sendToOutputStream(String message) throws IOException {
         messageSent = message;
         boolean add = methodLog.add("sendToOutputStream()");
     }
 
     @Override
-    void close() throws IOException {
+    public void close() throws IOException {
         methodLog.add("close()");
     }
 
