@@ -18,4 +18,13 @@ public class EchoServerTest {
         assertThat((((ServerSokketSpy) serverSokketSpy).methodLog()), hasItems("establishAndListenAtPort()"));
         assertEquals((((ServerSokketSpy) serverSokketSpy).portAssigned()), samplePort);
     }
+
+    @Test public void testRunTellsServerSocketToReturnAConnectedSocketUponConnection() throws IOException {
+        int samplePort = 8000;
+        ServerSokket serverSokketSpy = new ServerSokketSpy();
+        ConnectionProtocol sendMessageProtocolSpy = new SendMessageProtocolSpy();
+
+        EchoServer.run(samplePort, serverSokketSpy, sendMessageProtocolSpy);
+        assertThat((((ServerSokketSpy) serverSokketSpy).methodLog()), hasItems("acceptConnectionAndReturnConnectedSocket()"));
+    }
 }
