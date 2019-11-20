@@ -4,6 +4,11 @@ import java.util.ArrayList;
 public class SokketSpy extends Sokket {
 
     private ArrayList<String> methodLog;
+    private String messageSent;
+
+    SokketSpy() {
+        this.methodLog = new ArrayList<String>();
+    }
 
     @Override
     String readInputStream() throws IOException {
@@ -13,16 +18,21 @@ public class SokketSpy extends Sokket {
 
     @Override
     void sendToOutputStream(String message) throws IOException {
-        methodLog.add("sendToOutputStream()");
+        messageSent = message;
+        boolean add = methodLog.add("sendToOutputStream()");
     }
 
     @Override
     void close() throws IOException {
-        methodLog.add("sendToOutputStream()");
+        methodLog.add("close()");
     }
 
     public ArrayList<String> methodLog() {
         return methodLog;
+    }
+
+    public String messageSent() {
+        return messageSent;
     }
 }
 
