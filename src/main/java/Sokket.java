@@ -1,7 +1,11 @@
+import java.io.IOException;
+
 public abstract class Sokket {
 
-   abstract String getInputStream();
+   abstract String readInputStream() throws IOException;
 
-   abstract void sendToOutPutStream();
+   abstract void sendToOutputStream(String message) throws IOException;
+
+   abstract void close() throws IOException;
 
 }

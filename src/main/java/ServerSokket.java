@@ -1,7 +1,11 @@
+import java.io.IOException;
+
 public abstract class ServerSokket {
 
-    abstract ServerSokket createAndListenAtPort();
+    abstract ServerSokket establishAndListenAtPort(int port) throws IOException;
 
-    abstract Sokket acceptConnectionAndReturnConnectedSocket();
+    abstract Sokket acceptConnectionAndReturnConnectedSocket() throws IOException;
+
+    abstract void close() throws IOException;
 
 }
