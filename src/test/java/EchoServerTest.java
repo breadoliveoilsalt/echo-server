@@ -11,7 +11,7 @@ public class EchoServerTest {
 
     int samplePort = 8000;
     MockServerSokket mockServerSokket;
-    ConnectionProtocol mockSendMessageProtocol;
+    MockSendMessageProtocol mockSendMessageProtocol;
 
     @Before
     public void init() {
@@ -39,11 +39,11 @@ public class EchoServerTest {
     }
 
     @Test public void testRunPassesTheConnectedSokketToTheProtocolToHandle() throws IOException {
-        MockSokket expectedMockSokketArgument = new MockSokket();
+        Sokket expectedMockSokketArgument = new MockSokket();
         mockServerSokket.setMockSokketToReturn(expectedMockSokketArgument);
 
         EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
-// running into problem with interface declaring a certain thing needs to be passed in...a certain type of thing...
+
         assertSame(expectedMockSokketArgument, mockSendMessageProtocol.getSokket());
     }
 
