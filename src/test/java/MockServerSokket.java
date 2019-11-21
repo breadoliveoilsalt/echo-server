@@ -11,17 +11,20 @@ public class MockServerSokket extends ServerSokket {
         this.methodLog = new ArrayList<String>();
     }
 
+    @Override
     public ServerSokket establishAndListenAtPort(int port) throws IOException {
         portAssigned = port;
         methodLog.add("establishAndListenAtPort()");
         return this;
     }
 
+    @Override
     public Sokket acceptConnectionAndReturnConnectedSokket() throws IOException {
         methodLog.add("acceptConnectionAndReturnConnectedSokket()");
         return mockConnectedSokket;
     }
 
+    @Override
     public void close() throws IOException {
         methodLog.add("close()");
     }

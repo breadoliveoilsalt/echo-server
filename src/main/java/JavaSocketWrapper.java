@@ -12,9 +12,12 @@ public class JavaSocketWrapper extends Sokket {
         this.socket = socket;
     }
 
+    @Override
     public void sendToOutputStream(String message) throws IOException {
         new PrintWriter(socket.getOutputStream(), true).println(message);
     }
+
+    @Override
     public void close() throws IOException {
         socket.close();
     }
