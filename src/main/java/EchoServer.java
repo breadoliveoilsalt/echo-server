@@ -6,6 +6,7 @@ public class EchoServer {
         serverSokket.establishAndListenAtPort(port);
         Sokket connectedSokket = serverSokket.acceptConnectionAndReturnConnectedSokket();
         connectionProtocol.handleConnection(connectedSokket);
+        serverSokket.close();
     }
 
 }

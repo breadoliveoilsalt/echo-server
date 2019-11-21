@@ -48,4 +48,10 @@ public class EchoServerTest {
         assertSame(expectedMockSokketArgument, mockSendMessageProtocol.getSokketArgument());
     }
 
+    @Test public void testRunClosesTheSokketServer() throws IOException {
+        EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
+
+        assertThat(mockServerSokket.methodLog(), hasItems("close()"));
+    }
+    
 }
