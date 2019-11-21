@@ -53,5 +53,5 @@ public class EchoServerTest {
 
         assertThat(mockServerSokket.methodLog(), hasItems("close()"));
     }
-    
+
 }
