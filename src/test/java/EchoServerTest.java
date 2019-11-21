@@ -38,13 +38,14 @@ public class EchoServerTest {
         assertThat(mockServerSokket.methodLog(), hasItems("acceptConnectionAndReturnConnectedSokket()"));
     }
 
-    @Test public void testRunPassesTheConnectedSokketToTheProtocolToHandle() throws IOException {
+    @Test public void testRunPassesTheConnectedSokketToTheProtocolToHandleConnection() throws IOException {
         Sokket expectedMockSokketArgument = new MockSokket();
         mockServerSokket.setMockSokketToReturn(expectedMockSokketArgument);
 
         EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
 
-        assertSame(expectedMockSokketArgument, mockSendMessageProtocol.getSokket());
+        assertThat(mockSendMessageProtocol.methodLog(), hasItems("handleConnection()"));
+        assertSame(expectedMockSokketArgument, mockSendMessageProtocol.getSokketArgument());
     }
 
 }
