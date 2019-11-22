@@ -1,57 +1,43 @@
-import org.junit.After;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.IOException;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.hasItems;
 
 public class EchoServerTest {
 
-    int samplePort = 8000;
-    MockServerSokket mockServerSokket;
-    MockSendMessageProtocol mockSendMessageProtocol;
+    private int samplePort = 8000;
+    private MockServerSokket serverSokket;
+    private MockConnectionProtocol connectionProtocol;
 
     @Before
     public void init() {
-        this.mockServerSokket = new MockServerSokket();
-        this.mockSendMessageProtocol = new MockSendMessageProtocol();
+        serverSokket = new MockServerSokket();
+        connectionProtocol = new MockConnectionProtocol();
     }
 
-    @After
-    public void tearDown() {
-        this.mockServerSokket = null;
-        this.mockSendMessageProtocol = null;
+    @Test public void testRunBindsTheServerSokketToTheSamplePort() throws IOException {
+        assertEquals(serverSokket.getPort(), 0);
+
+        EchoServer.run(samplePort, serverSokket, connectionProtocol);
+
+        assertEquals(serverSokket.getPort(), samplePort);
     }
 
-    @Test public void testRunBindsTheServerSokketToAPort() throws IOException {
-        EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
+    @Test public void testRunPassesAConnectedSokketToTheProtocolToHandleConnection() throws IOException {
+        Sokket connectedSokket = new MockSokket();
+        serverSokket.setMockSokketToReturnFollowingConnection(connectedSokket);
 
-        assertThat(mockServerSokket.methodLog(), hasItems("establishAndListenAtPort()"));
-        assertEquals(mockServerSokket.portAssigned(), samplePort);
-    }
+        EchoServer.run(samplePort, serverSokket, connectionProtocol);
 
-    @Test public void testRunTellsServerSokketToReturnAConnectedSokketUponConnection() throws IOException {
-        EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
-
-        assertThat(mockServerSokket.methodLog(), hasItems("acceptConnectionAndReturnConnectedSokket()"));
-    }
-
-    @Test public void testRunPassesTheConnectedSokketToTheProtocolToHandleConnection() throws IOException {
-        Sokket expectedMockSokketArgument = new MockSokket();
-        mockServerSokket.setMockSokketToReturn(expectedMockSokketArgument);
-
-        EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
-
-        assertThat(mockSendMessageProtocol.methodLog(), hasItems("handleConnection()"));
-        assertSame(expectedMockSokketArgument, mockSendMessageProtocol.getSokketArgument());
+        assertSame(connectedSokket, connectionProtocol.getConnectedSokket());
     }
 
     @Test public void testRunClosesTheSokketServer() throws IOException {
-        EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
+        assertFalse(serverSokket.isClosed());
 
-        assertThat(mockServerSokket.methodLog(), hasItems("close()"));
+        EchoServer.run(samplePort, serverSokket, connectionProtocol);
+
+        assertTrue(serverSokket.isClosed());
     }
 
 }

@@ -1,32 +1,23 @@
-import java.io.IOException;
-import java.util.ArrayList;
+public class MockSokket implements Sokket {
 
-public class MockSokket extends Sokket {
-
-    private ArrayList<String> methodLog;
     private String messageSent;
+    private boolean closed = false;
 
-    MockSokket() {
-        this.methodLog = new ArrayList<String>();
-    }
-
-    @Override
-    public void sendToOutputStream(String message) throws IOException {
+    public void sendToOutputStream(String message) {
         messageSent = message;
-        boolean add = methodLog.add("sendToOutputStream()");
     }
 
-    @Override
-    public void close() throws IOException {
-        methodLog.add("close()");
+    public void close() {
+        closed = true;
     }
 
-    public ArrayList<String> methodLog() {
-        return methodLog;
-    }
-
-    public String messageSent() {
+    public String getMessageSent() {
         return messageSent;
     }
+
+    public boolean isClosed() {
+        return closed;
+    }
+
 }
 

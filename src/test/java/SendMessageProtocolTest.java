@@ -1,40 +1,34 @@
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.junit.Assert.assertSame;
 
 import java.io.IOException;
 
 public class SendMessageProtocolTest {
 
-    MockSokket mockSokket;
-    ConnectionProtocol testedProtocol;
+    private MockSokket sokket;
+    private ConnectionProtocol testedProtocol;
 
     @Before
     public void init() {
-        this.mockSokket = new MockSokket();
-        this.testedProtocol = new SendMessageProtocol();
-    }
-
-    @After
-    public void tearDown() {
-        this.mockSokket = null;
-        this.testedProtocol = null;
+        sokket = new MockSokket();
+        testedProtocol = new SendMessageProtocol();
     }
 
     @Test public void testHandleConnectionSendsHeyThereToSokketOutputStream() throws IOException {
-        testedProtocol.handleConnection(mockSokket);
+        assertSame(sokket.getMessageSent(), null);
 
-        assertThat(mockSokket.methodLog(), hasItems("sendToOutputStream()"));
-        assertSame(mockSokket.messageSent(), "Hey there");
+        testedProtocol.handleConnection(sokket);
+
+        assertSame(sokket.getMessageSent(), "Hey there");
     }
 
     @Test public void testHandleConnectionClosesTheSokket() throws IOException {
-        testedProtocol.handleConnection(mockSokket);
+        assertFalse(sokket.isClosed());
 
-        assertThat(mockSokket.methodLog(), hasItems("close()"));
+        testedProtocol.handleConnection(sokket);
+
+        assertTrue(sokket.isClosed());
     }
 
 }

@@ -4,11 +4,27 @@
 
 Welcome!
 
-This echo server is written in Java.  Its build is handled by Gradle; the Gradle wrapper runs Gradle v5.6.2.  Tests are written with JUnit v4.12.
+This echo server is written in Java 11.  Its build is handled by Gradle; the Gradle wrapper runs Gradle v5.6.2.  Tests are written with JUnit v4.12.
 
 ## Running the App Locally 
 
 To run the echo server locally:
+
+### Option A: Download the Latest Release and Run the Jar File
+
+Note: you will need to have Java installed to use this option.  You might run into problems if you do not have Java 11 installed. 
+
+1. Go to the repository's releases page [here](https://github.com/breadoliveoilsalt/echo-server/releases) and download the `.jar` file of the latest release.
+
+2. To start the app's server, from your terminal, `cd` into the directory with the `.jar` file.  Run `java -jar <download-file-name>.jar` (replacing `<download-file-name>` with the name of the `.jar` file).
+
+3. To connect to the server and get a "Hey there" message back, open a new terminal window.  From this new window, you can then:
+    - run `curl localhost:8000` OR
+    - if your terminal can run bash scrips, `cd` into the app's root directory and run `./serverConnect`. 
+
+### Option B: Build the App with Gradle
+
+Note: you will need to have Gradle installed to use this option.
 
 1. Fork this repository in GitHub and download/clone the master branch to your computer.
 
