@@ -1,8 +1,7 @@
-public class MockConnectionProtocol extends ConnectionProtocol {
+public class MockConnectionProtocol implements ConnectionProtocol {
 
     private Sokket connectedSokket;
 
-    @Override
     public void handleConnection(Sokket sokket) {
         connectedSokket = sokket;
     }

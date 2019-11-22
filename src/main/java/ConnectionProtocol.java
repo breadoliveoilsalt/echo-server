@@ -1,7 +1,7 @@
 import java.io.IOException;
 
-public abstract class ConnectionProtocol {
+public interface ConnectionProtocol {
 
-    public abstract void handleConnection(Sokket sokket) throws IOException;
+    void handleConnection(Sokket sokket) throws IOException;
 
 }

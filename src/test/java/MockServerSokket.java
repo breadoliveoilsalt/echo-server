@@ -1,21 +1,17 @@
-public class MockServerSokket extends ServerSokket {
+public class MockServerSokket implements ServerSokket {
 
     private int port;
     private Sokket connectedSokket = null;
     private boolean closed = false;
 
-    @Override
-    public ServerSokket establishAndListenAtPort(int port) {
+    public void establishAndListenAtPort(int port) {
         this.port = port;
-        return this;
     }
 
-    @Override
     public Sokket acceptConnectionAndReturnConnectedSokket() {
         return connectedSokket;
     }
 
-    @Override
     public void close() {
         closed = true;
     }
