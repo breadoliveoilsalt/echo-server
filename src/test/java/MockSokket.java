@@ -7,6 +7,10 @@ public class MockSokket implements Sokket {
         messageSent = message;
     }
 
+    public String readLine() {
+        return "Yo";
+    }
+
     public void close() {
         closed = true;
     }
