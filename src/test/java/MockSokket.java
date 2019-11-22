@@ -1,22 +1,27 @@
 public class MockSokket implements Sokket {
 
-    private String messageSent;
+    private String mockMessageToReceiveFromClient;
+    private String messageSentToClient;
     private boolean closed = false;
 
     public void sendToOutputStream(String message) {
-        messageSent = message;
+        messageSentToClient = message;
     }
 
     public String readLine() {
-        return "Yo";
+        return mockMessageToReceiveFromClient;
+    }
+
+    public void setMockMessageToReceiveFromClient(String mockMessageToReceiveFromClient) {
+        this.mockMessageToReceiveFromClient = mockMessageToReceiveFromClient;
     }
 
     public void close() {
         closed = true;
     }
 
-    public String getMessageSent() {
-        return messageSent;
+    public String getMessageSentToClient() {
+        return messageSentToClient;
     }
 
     public boolean isClosed() {
