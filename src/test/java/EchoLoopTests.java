@@ -1,13 +1,12 @@
 import org.junit.Test;
-import java.io.IOException;
 
 public class EchoLoopTests {
 
     @Test
-    public void testRunBeginsALoopThatReadsLineFromClientAndSendsSameMessageBackToClient() throws IOException {
+    public void testRunBeginsALoopThatReadsLineFromClientAndSendsSameMessageBackToClient() {
     }
 
-    // @Test public void testRunContinuesTheLoopUntilClientSendsExitMessage() throws IOException {
+    // @Test public void testRunContinuesTheLoopUntilClientSendsExitMessage() {
     // }
 
 
