@@ -1,16 +1,7 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class MockServerSokket extends ServerSokket {
 
-    private List<String> methodLog = new ArrayList<>();
     private int port;
-    private Sokket mockConnectedSokket = null;
-
-    public boolean isClosed() {
-        return closed;
-    }
-
+    private Sokket connectedSokket = null;
     private boolean closed = false;
 
     @Override
@@ -21,8 +12,7 @@ public class MockServerSokket extends ServerSokket {
 
     @Override
     public Sokket acceptConnectionAndReturnConnectedSokket() {
-        methodLog.add("acceptConnectionAndReturnConnectedSokket()");
-        return mockConnectedSokket;
+        return connectedSokket;
     }
 
     @Override
@@ -30,16 +20,16 @@ public class MockServerSokket extends ServerSokket {
         closed = true;
     }
 
-    public List<String> methodLog() {
-        return methodLog;
+    public boolean isClosed() {
+        return closed;
     }
 
-    public int portAssigned() {
+    public int getPort() {
         return port;
     }
 
-    public void setMockSokketToReturn(Sokket sokket) {
-        mockConnectedSokket = sokket;
+    public void setMockSokketToReturnFollowingConnection(Sokket sokket) {
+        connectedSokket = sokket;
     }
 }
 

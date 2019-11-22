@@ -1,4 +1,4 @@
-public class MockSendMessageProtocol extends ConnectionProtocol {
+public class MockConnectionProtocol extends ConnectionProtocol {
 
     private Sokket connectedSokket;
 
