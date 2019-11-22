@@ -1,40 +1,41 @@
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MockServerSokket extends ServerSokket {
 
-    private ArrayList<String> methodLog;
-    private int portAssigned;
+    private List<String> methodLog = new ArrayList<>();
+    private int port;
     private Sokket mockConnectedSokket = null;
 
-    MockServerSokket() {
-        this.methodLog = new ArrayList<String>();
+    public boolean isClosed() {
+        return closed;
     }
 
+    private boolean closed = false;
+
     @Override
-    public ServerSokket establishAndListenAtPort(int port) throws IOException {
-        portAssigned = port;
-        methodLog.add("establishAndListenAtPort()");
+    public ServerSokket establishAndListenAtPort(int port) {
+        this.port = port;
         return this;
     }
 
     @Override
-    public Sokket acceptConnectionAndReturnConnectedSokket() throws IOException {
+    public Sokket acceptConnectionAndReturnConnectedSokket() {
         methodLog.add("acceptConnectionAndReturnConnectedSokket()");
         return mockConnectedSokket;
     }
 
     @Override
-    public void close() throws IOException {
-        methodLog.add("close()");
+    public void close() {
+        closed = true;
     }
 
-    public ArrayList<String> methodLog() {
+    public List<String> methodLog() {
         return methodLog;
     }
 
     public int portAssigned() {
-        return portAssigned;
+        return port;
     }
 
     public void setMockSokketToReturn(Sokket sokket) {

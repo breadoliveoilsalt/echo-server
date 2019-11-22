@@ -9,9 +9,9 @@ import static org.hamcrest.CoreMatchers.hasItems;
 
 public class EchoServerTest {
 
-    int samplePort = 8000;
-    MockServerSokket mockServerSokket;
-    MockSendMessageProtocol mockSendMessageProtocol;
+    private int samplePort = 8000;
+    private MockServerSokket mockServerSokket;
+    private MockSendMessageProtocol mockSendMessageProtocol;
 
     @Before
     public void init() {
@@ -19,23 +19,10 @@ public class EchoServerTest {
         this.mockSendMessageProtocol = new MockSendMessageProtocol();
     }
 
-    @After
-    public void tearDown() {
-        this.mockServerSokket = null;
-        this.mockSendMessageProtocol = null;
-    }
-
     @Test public void testRunBindsTheServerSokketToAPort() throws IOException {
         EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
 
-        assertThat(mockServerSokket.methodLog(), hasItems("establishAndListenAtPort()"));
         assertEquals(mockServerSokket.portAssigned(), samplePort);
-    }
-
-    @Test public void testRunTellsServerSokketToReturnAConnectedSokketUponConnection() throws IOException {
-        EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
-
-        assertThat(mockServerSokket.methodLog(), hasItems("acceptConnectionAndReturnConnectedSokket()"));
     }
 
     @Test public void testRunPassesTheConnectedSokketToTheProtocolToHandleConnection() throws IOException {
@@ -44,14 +31,15 @@ public class EchoServerTest {
 
         EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
 
-        assertThat(mockSendMessageProtocol.methodLog(), hasItems("handleConnection()"));
-        assertSame(expectedMockSokketArgument, mockSendMessageProtocol.getSokketArgument());
+        assertSame(expectedMockSokketArgument, mockSendMessageProtocol.getConnectedSokket());
     }
 
     @Test public void testRunClosesTheSokketServer() throws IOException {
+        assertFalse(mockServerSokket.isClosed());
+
         EchoServer.run(samplePort, mockServerSokket, mockSendMessageProtocol);
 
-        assertThat(mockServerSokket.methodLog(), hasItems("close()"));
+        assertTrue(mockServerSokket.isClosed());
     }
 
 }
