@@ -4,7 +4,7 @@
 
 Welcome!
 
-This echo server is written in Java.  Its build is handled by Gradle; the Gradle wrapper runs on Gradle v5.6.2.  Tests are written with JUnit v4.12.
+This echo server is written in Java.  Its build is handled by Gradle; the Gradle wrapper runs Gradle v5.6.2.  Tests are written with JUnit v4.12.
 
 ## Running the App Locally 
 
@@ -19,9 +19,9 @@ To run the echo server locally:
 4. The Gradle build for this particular app relies on git commit information found in a `.git` directory.  Therefore, to build or even run the app with Gradle, you will have initialize git within the project's root directory. To do so, run the following from the root directory, in order: 
     - `git init .`
     - `git add .`
-    - `git commit -m "Initial commit`
+    - `git commit -m "Initial commit"`
     
-5. To start the app's server, run: `./gradelew run`.
+5. To start the app's server, run: `./gradlew run`.
 
 6. To connect to the server and get a "Hey there" message back, open a new terminal window.  From this new window, you can then:
     - run `curl localhost:8000` OR
