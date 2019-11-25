@@ -19,21 +19,21 @@ public class EchoLoopTests {
     @Test
     public void testRunBeginsALoopThatReadsLineFromClientAndSendsSameMessageBackToClient() throws IOException {
         MockSokket sokket = new MockSokket();
-        List messageFromClient = new ArrayList<String>();
-        messageFromClient.add("Hello");
+        List messageFromClient = new ArrayList<String>(Arrays.asList("Hello!", "exit!"));
         sokket.setMockMessagesToReceiveFromClient(messageFromClient);
+        List expectedMessageFromClient = new ArrayList(Arrays.asList("Hello!"));
 
         assertTrue(sokket.getMessagesSentToClient().isEmpty());
         loop.run(sokket);
 
-        assertEquals(messageFromClient, sokket.getMessagesSentToClient());
+        assertEquals(expectedMessageFromClient, sokket.getMessagesSentToClient());
     }
 
      @Test public void testRunContinuesTheLoopUntilClientSendsExitMessage() throws IOException {
         MockSokket sokket = new MockSokket();
-        List messagesFromClient = new ArrayList(Arrays.asList("Hello!", "How are you?", "exit!"));
+        List messagesFromClient = new ArrayList(Arrays.asList("Hello!", "How are you?", "Bye!", "exit!"));
         sokket.setMockMessagesToReceiveFromClient(messagesFromClient);
-        List expectedMessagesSentToClient = new ArrayList(Arrays.asList("Hello!", "How are you?"));
+        List expectedMessagesSentToClient = new ArrayList(Arrays.asList("Hello!", "How are you?", "Bye!"));
         loop.run(sokket);
 
         assertEquals(expectedMessagesSentToClient, sokket.getMessagesSentToClient());

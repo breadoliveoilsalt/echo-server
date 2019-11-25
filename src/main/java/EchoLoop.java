@@ -3,7 +3,10 @@ import java.io.IOException;
 public class EchoLoop {
 
     public void run(Sokket sokket) throws IOException {
-        sokket.sendToOutputStream(sokket.readLine());
+        String clientMessage;
+        while ((clientMessage = sokket.readLine()) != "exit!") {
+            sokket.sendToOutputStream(clientMessage);
+        }
     }
 
 }
