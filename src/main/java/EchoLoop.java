@@ -1,12 +1,14 @@
 import java.io.IOException;
 
-public class EchoLoop {
+public class EchoLoop implements ConnectionProtocol {
 
-    public void run(Sokket sokket) throws IOException {
+    public void handleConnection(Sokket sokket) throws IOException {
+        sokket.sendToOutputStream("Enter some text!");
         String clientMessage;
         while ((clientMessage = sokket.readLine()) != "exit!") {
-            sokket.sendToOutputStream(clientMessage);
+            sokket.sendToOutputStream("** Back attcha: " + clientMessage + " **");
         }
+        sokket.close();
     }
 
 }

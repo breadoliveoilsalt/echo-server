@@ -24,7 +24,7 @@ public class EchoLoopTests {
         List expectedMessageFromClient = new ArrayList(Arrays.asList("Hello!"));
 
         assertTrue(sokket.getMessagesSentToClient().isEmpty());
-        loop.run(sokket);
+        loop.handleConnection(sokket);
 
         assertEquals(expectedMessageFromClient, sokket.getMessagesSentToClient());
     }
@@ -34,7 +34,7 @@ public class EchoLoopTests {
         List messagesFromClient = new ArrayList(Arrays.asList("Hello!", "How are you?", "Bye!", "exit!"));
         sokket.setMockMessagesToReceiveFromClient(messagesFromClient);
         List expectedMessagesSentToClient = new ArrayList(Arrays.asList("Hello!", "How are you?", "Bye!"));
-        loop.run(sokket);
+        loop.handleConnection(sokket);
 
         assertEquals(expectedMessagesSentToClient, sokket.getMessagesSentToClient());
      }
