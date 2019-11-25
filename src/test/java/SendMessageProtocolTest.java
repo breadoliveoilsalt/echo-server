@@ -16,11 +16,11 @@ public class SendMessageProtocolTest {
     }
 
     @Test public void testHandleConnectionSendsHeyThereToSokketOutputStream() throws IOException {
-        assertSame(sokket.getMessageSentToClient(), null);
+        assertSame(sokket.getMessagesSentToClient(), null);
 
         testedProtocol.handleConnection(sokket);
 
-        assertSame(sokket.getMessageSentToClient(), "Hey there");
+        assertSame(sokket.getMessagesSentToClient(), "Hey there");
     }
 
     @Test public void testHandleConnectionClosesTheSokket() throws IOException {

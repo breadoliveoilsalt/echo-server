@@ -1,27 +1,33 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class MockSokket implements Sokket {
 
-    private String mockMessageToReceiveFromClient;
-    private String messageSentToClient;
+    private List mockMessagesFromClient;
+    private int currentMessagePointer = 0;
+    private List messagesSentToClient = new ArrayList<String>();
     private boolean closed = false;
 
     public void sendToOutputStream(String message) {
-        messageSentToClient = message;
+        messagesSentToClient.add(message);
     }
 
     public String readLine() {
-        return mockMessageToReceiveFromClient;
+        String message = String.valueOf(mockMessagesFromClient.get(currentMessagePointer));
+        currentMessagePointer += 1;
+        return message;
     }
 
-    public void setMockMessageToReceiveFromClient(String mockMessageToReceiveFromClient) {
-        this.mockMessageToReceiveFromClient = mockMessageToReceiveFromClient;
+    public void setMockMessagesToReceiveFromClient(List mockMessagesToReceiveFromClient) {
+        this.mockMessagesFromClient = mockMessagesToReceiveFromClient;
     }
 
     public void close() {
         closed = true;
     }
 
-    public String getMessageSentToClient() {
-        return messageSentToClient;
+    public List getMessagesSentToClient() {
+        return messagesSentToClient;
     }
 
     public boolean isClosed() {
