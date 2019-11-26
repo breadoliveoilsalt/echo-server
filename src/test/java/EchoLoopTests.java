@@ -11,15 +11,15 @@ public class EchoLoopTests {
 
     private EchoLoop loop;
     private MockSokket sokket;
-    private List messagesFromClient;
-    private List expectedSentMessages;
+    private List<String> messagesFromClient;
+    private List<String> expectedSentMessages;
 
     @Before
     public void init() {
         loop = new EchoLoop();
         sokket = new MockSokket();
-        messagesFromClient = new ArrayList();
-        expectedSentMessages = new ArrayList();
+        messagesFromClient = new ArrayList<>();
+        expectedSentMessages = new ArrayList<>();
     }
 
     @Test
