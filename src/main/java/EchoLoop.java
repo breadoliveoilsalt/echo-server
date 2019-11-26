@@ -2,11 +2,13 @@ import java.io.IOException;
 
 public class EchoLoop implements ConnectionProtocol {
 
+    private String clientMessage;
+
     public void handleConnection(Sokket sokket) throws IOException {
-        String clientMessage;
-        while (!(clientMessage = sokket.readLine()).equals("exit!")) {
-            System.out.println(clientMessage);
+        clientMessage = sokket.readLine();
+        while (!clientMessage.equals("exit!")) {
             sokket.sendToOutputStream(clientMessage);
+            clientMessage = sokket.readLine();
         }
         sokket.close();
     }
