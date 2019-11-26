@@ -25,3 +25,13 @@ jar {
         )
     }
 }
+
+// Uncomment to compile with warnings
+//allprojects {
+//    gradle.projectsEvaluated {
+//        tasks.withType(JavaCompile) {
+//            options.encoding = 'UTF-8'
+//            options.compilerArgs << "-Xlint:unchecked"
+//        }
+//    }
+//}

@@ -18,9 +18,11 @@ Note: you will need to have Java installed to use this option.  You might run in
 
 2. To start the app's server, from your terminal, `cd` into the directory with the `.jar` file.  Run `java -jar <download-file-name>.jar` (replacing `<download-file-name>` with the name of the `.jar` file).
 
-3. To connect to the server and get a "Hey there" message back, open a new terminal window.  From this new window, you can then:
-    - run `curl localhost:8000` OR
-    - if your terminal can run bash scrips, `cd` into the app's root directory and run `./serverConnect`. 
+3. To connect to the server and get your typed messages echoed back from the server, open a new terminal window.  From this new window, you can then:
+    - run `nc localhost 8000` OR
+    - if your terminal can run bash scrips, from the app's root directory, run `./serverConnect`. 
+    
+To disconnect from the server, type `exit!` and hit return.
 
 ### Option B: Build the App with Gradle
 
@@ -39,11 +41,11 @@ Note: you will need to have Gradle installed to use this option.
     
 5. To start the app's server, run: `./gradlew run`.
 
-6. To connect to the server and get a "Hey there" message back, open a new terminal window.  From this new window, you can then:
-    - run `curl localhost:8000` OR
-    - if your terminal can run bash scrips, `cd` into the app's root directory and run `./serverConnect`.   
-    
-The server app will then close.
+6. To connect to the server and get your typed messages echoed back from the server, open a new terminal window.  From this new window, you can then:
+       - run `nc localhost 8000` OR
+       - if your terminal can run bash scrips, `cd` into the app's root directory and run `./serverConnect`. 
+       
+To disconnect from the server, type `exit!` and hit return.
 
 To run a full build of the app without starting the server, run `./gradlew build`.
 
