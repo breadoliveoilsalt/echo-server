@@ -13,7 +13,7 @@ public class JavaSocketWrapper implements Sokket {
         writer = new PrintWriter(socket.getOutputStream(), true);
     }
 
-    public void sendToOutputStream(String message) throws IOException {
+    public void sendToOutputStream(String message) {
         writer.println(message);
     }
 
