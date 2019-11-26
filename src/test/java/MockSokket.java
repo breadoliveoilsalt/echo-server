@@ -5,7 +5,7 @@ public class MockSokket implements Sokket {
 
     private List mockMessagesFromClient;
     private int currentMessagePointer = 0;
-    private List messagesSentToClient = new ArrayList<String>();
+    private List<String> messagesSentToClient = new ArrayList<>();
     private boolean closed = false;
 
     public void sendToOutputStream(String message) {
