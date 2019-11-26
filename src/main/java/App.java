@@ -5,9 +5,9 @@ public class App {
     public static void main(String[] args) throws IOException {
         int port = 8000;
         ServerSokket serverSokket = new JavaServerSocketWrapper();
-        ConnectionProtocol echoProtocol = new EchoLoop();
+        ConnectionProtocol echoLoopProtocol = new EchoLoopProtocol();
 
-        EchoServer.run(port, serverSokket, echoProtocol);
+        EchoServer.run(port, serverSokket, echoLoopProtocol);
     }
 
 }

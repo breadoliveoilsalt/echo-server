@@ -9,14 +9,12 @@ import java.util.List;
 
 public class EchoLoopTests {
 
-    private EchoLoop loop;
     private MockSokket sokket;
     private List<String> messagesFromClient;
     private List<String> expectedSentMessages;
 
     @Before
     public void init() {
-        loop = new EchoLoop();
         sokket = new MockSokket();
         messagesFromClient = new ArrayList<>();
         expectedSentMessages = new ArrayList<>();
@@ -29,7 +27,7 @@ public class EchoLoopTests {
         expectedSentMessages.add("Hello!");
 
         assertTrue(sokket.getMessagesSentToClient().isEmpty());
-        loop.handleConnection(sokket);
+        EchoLoop.run(sokket);
 
         assertEquals(expectedSentMessages, sokket.getMessagesSentToClient());
     }
@@ -39,7 +37,7 @@ public class EchoLoopTests {
         sokket.setMockMessagesToReceiveFromClient(messagesFromClient);
         expectedSentMessages.addAll(Arrays.asList("Hello!", "How are you?", "Bye!"));
 
-        loop.handleConnection(sokket);
+        EchoLoop.run(sokket);
 
         assertEquals(expectedSentMessages, sokket.getMessagesSentToClient());
      }
@@ -48,7 +46,7 @@ public class EchoLoopTests {
          messagesFromClient.addAll(Arrays.asList("exit!", "Hello!", "How are you?"));
          sokket.setMockMessagesToReceiveFromClient(messagesFromClient);
 
-         loop.handleConnection(sokket);
+         EchoLoop.run(sokket);
 
          assertTrue((sokket.getMessagesSentToClient()).isEmpty());
      }
