@@ -44,5 +44,13 @@ public class EchoLoopTests {
         assertEquals(expectedSentMessages, sokket.getMessagesSentToClient());
      }
 
+     @Test public void testRunStopsAsSoonAsClientSendsExitMessage() throws IOException {
+         messagesFromClient.addAll(Arrays.asList("exit!", "Hello!", "How are you?"));
+         sokket.setMockMessagesToReceiveFromClient(messagesFromClient);
+
+         loop.handleConnection(sokket);
+
+         assertTrue((sokket.getMessagesSentToClient()).isEmpty());
+     }
 
 }
