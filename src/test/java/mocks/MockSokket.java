@@ -1,3 +1,7 @@
+package mocks;
+
+import echoServer.interfaces.Sokket;
+
 import java.util.ArrayList;
 import java.util.List;
 

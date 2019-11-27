@@ -1,3 +1,7 @@
+package tests;
+
+import echoServer.logic.EchoLoop;
+import mocks.MockSokket;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

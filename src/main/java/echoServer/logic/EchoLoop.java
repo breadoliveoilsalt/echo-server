@@ -1,3 +1,7 @@
+package echoServer.logic;
+
+import echoServer.interfaces.Sokket;
+
 import java.io.IOException;
 
 public class EchoLoop {
