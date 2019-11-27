@@ -4,9 +4,9 @@ import java.io.IOException;
 
 public interface Sokket {
 
-   void sendToOutputStream(String message);
+   Object getInputStream(String message) throws IOException;
 
-   String readLine() throws IOException;
+   Object getOutputStream() throws IOException;
 
    void close() throws IOException;
 

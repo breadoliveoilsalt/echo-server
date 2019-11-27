@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MockSokket implements Sokket {
 
-    private List mockMessagesFromClient;
+    private List<String> mockMessagesFromClient;
     private int currentMessagePointer = 0;
     private List<String> messagesSentToClient = new ArrayList<>();
     private boolean closed = false;
@@ -22,7 +22,7 @@ public class MockSokket implements Sokket {
         return message;
     }
 
-    public void setMockMessagesToReceiveFromClient(List mockMessagesToReceiveFromClient) {
+    public void setMockMessagesToReceiveFromClient(List<String> mockMessagesToReceiveFromClient) {
         this.mockMessagesFromClient = mockMessagesToReceiveFromClient;
     }
 
