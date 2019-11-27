@@ -1,3 +1,7 @@
+package echoServer.wrappers;
+
+import echoServer.interfaces.Sokket;
+
 import java.io.*;
 import java.net.Socket;
 

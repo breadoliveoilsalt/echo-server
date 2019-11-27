@@ -1,3 +1,8 @@
+package mocks;
+
+import echoServer.interfaces.ServerSokket;
+import echoServer.interfaces.Sokket;
+
 public class MockServerSokket implements ServerSokket {
 
     private int port;

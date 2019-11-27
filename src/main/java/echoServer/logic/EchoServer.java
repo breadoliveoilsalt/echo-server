@@ -1,3 +1,9 @@
+package echoServer.logic;
+
+import echoServer.interfaces.ConnectionProtocol;
+import echoServer.interfaces.ServerSokket;
+import echoServer.interfaces.Sokket;
+
 import java.io.IOException;
 
 public class EchoServer {

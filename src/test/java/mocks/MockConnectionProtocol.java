@@ -1,3 +1,8 @@
+package mocks;
+
+import echoServer.interfaces.ConnectionProtocol;
+import echoServer.interfaces.Sokket;
+
 public class MockConnectionProtocol implements ConnectionProtocol {
 
     private Sokket connectedSokket;

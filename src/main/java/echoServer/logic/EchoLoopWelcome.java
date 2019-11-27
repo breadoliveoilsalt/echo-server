@@ -1,3 +1,7 @@
+package echoServer.logic;
+
+import echoServer.interfaces.Sokket;
+
 public class EchoLoopWelcome {
 
     public static void welcomeClient(Sokket sokket) {

@@ -1,4 +1,12 @@
+package tests;
+
 import static org.junit.Assert.*;
+
+import echoServer.interfaces.Sokket;
+import echoServer.logic.EchoServer;
+import mocks.MockConnectionProtocol;
+import mocks.MockServerSokket;
+import mocks.MockSokket;
 import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
