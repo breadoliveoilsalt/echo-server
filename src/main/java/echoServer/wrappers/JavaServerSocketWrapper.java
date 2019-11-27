@@ -6,11 +6,11 @@ import echoServer.interfaces.Sokket;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class JavaServerSocketWrapper implements ServerSokket {
+public class JavaServerSocketWrapper implements ServerSokket, AutoCloseable {
 
     private ServerSocket serverSocket;
 
-    public void establishAndListenAtPort(int port) throws IOException {
+    JavaServerSocketWrapper(int port) throws IOException {
         serverSocket = new ServerSocket(port);
     }
 

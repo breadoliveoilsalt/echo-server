@@ -1,18 +1,24 @@
 package echoServer.logic;
 
-import echoServer.interfaces.ConnectionProtocol;
+import echoServer.interfaces.AppFactory;
 import echoServer.interfaces.ServerSokket;
-import echoServer.interfaces.Sokket;
+import echoServer.interfaces.ServerSokketProtocol;
 
 import java.io.IOException;
 
 public class EchoServer {
 
-    public static void run(int port, ServerSokket serverSokket, ConnectionProtocol connectionProtocol) throws IOException {
-        serverSokket.establishAndListenAtPort(port);
-        Sokket connectedSokket = serverSokket.acceptConnectionAndReturnConnectedSokket();
-        connectionProtocol.handleConnection(connectedSokket);
-        serverSokket.close();
+    public static void start(int port, ServerSokketProtocol serverProtocol, AppFactory factory) throws IOException {
+        ServerSokket serverSokket = null;
+        
+        try {
+            serverSokket = factory.createServerSocketListeningAtPort(port);
+            serverProtocol.run(serverSokket, factory);
+        } finally {
+            if (serverSokket != null) {
+                serverSokket.close();
+            }
+        }
     }
 
 }

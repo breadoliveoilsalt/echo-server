@@ -14,12 +14,12 @@ public class JavaSocketWrapper implements Sokket {
     }
 
     @Override
-    public Object getInputStream(String message) throws IOException {
+    public InputStream getInputStream() throws IOException {
         return socket.getInputStream();
     }
 
     @Override
-    public Object getOutputStream() throws IOException {
+    public OutputStream getOutputStream() throws IOException {
         return socket.getOutputStream();
     }
 
