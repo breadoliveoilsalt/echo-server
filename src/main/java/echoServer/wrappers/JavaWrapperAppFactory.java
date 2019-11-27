@@ -1,8 +1,7 @@
 package echoServer.wrappers;
 
 import echoServer.interfaces.AppFactory;
-import echoServer.interfaces.Reader;
-import echoServer.interfaces.Writer;
+import echoServer.interfaces.Sokket;
 import echoServer.logic.EchoLoop;
 
 import java.io.IOException;
@@ -24,8 +23,8 @@ public class JavaWrapperAppFactory implements AppFactory {
         return new JavaPrintWriterWrapper(outputStream);
     }
 
-    public Runnable createEchoLoopRunnable(Reader reader, Writer writer) {
-        return new EchoLoop(reader, writer);
+    public Runnable createEchoLoop(Sokket connectedSokket, AppFactory factory) {
+        return new EchoLoop(connectedSokket, factory);
     }
 
     public Thread createThreadFor(Runnable runnable) {
