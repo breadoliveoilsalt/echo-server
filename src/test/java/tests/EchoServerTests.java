@@ -16,34 +16,40 @@ import static org.junit.Assert.*;
 public class EchoServerTest {
 
     private int samplePort = 8000;
-    private EchoServer echoServer;
-    private ServerSokketProtocol protocol;
+    private MockServerSokketProtocol protocol;
+    private MockServerSokket mockServerSokket;
     private MockAppFactory factory;
+    private EchoServer echoServer;
 
     @Before
     public void init() {
         protocol = new MockServerSokketProtocol();
+        mockServerSokket = new MockServerSokket(samplePort);
         factory = new MockAppFactory();
+        factory.setServerSokket(mockServerSokket);
         echoServer = new EchoServer(samplePort, protocol, factory);
     }
 
     @Test
     public void testStartInstantiatesAServerSokketThroughTheFactory() throws IOException {
-        MockServerSokket mockServerSokket = new MockServerSokket(samplePort);
-        factory.setServerSokket(mockServerSokket);
-
         assertFalse(factory.createdServerSokket());
+
         echoServer.start();
 
         assertTrue(factory.createdServerSokket());
         assertSame(mockServerSokket, echoServer.getServerSokket());
     }
 
-//    @Test
-//    public void testStartTellsTheProtocolToRunWithTheServerSokketAndTheFactory() {
-//        factory.setServerSokket(new MockServerSokket());
-//
-//    }
+    @Test
+    public void testStartTellsTheProtocolToRunWithTheServerSokketAndTheFactory() throws IOException {
+        assertFalse(protocol.wasRun());
+
+        echoServer.start();
+
+        assertTrue(protocol.wasRun());
+        assertSame(mockServerSokket, protocol.getServerSokketArgument());
+        assertSame(factory, protocol.getFactoryArgument());
+    }
 }
 //        EchoServer.run(samplePort, serverSokket, connectionProtocol);
 //
