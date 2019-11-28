@@ -8,18 +8,25 @@ import java.io.OutputStream;
 
 public class MockSokket implements Sokket {
 
+    private int connectedPort;
     private boolean gotInputStream = false;
     private boolean gotOutputStream = false;
     private boolean closed = false;
 
+    public MockSokket(int port) {
+        connectedPort = port;
+    }
+
     @Override
     public InputStream getInputStream() throws IOException {
         gotInputStream = true;
+        return new MockInputStream();
     }
 
     @Override
     public OutputStream getOutputStream() throws IOException {
         gotInputStream = true;
+        return new MockOutputStream();
     }
 
     @Override

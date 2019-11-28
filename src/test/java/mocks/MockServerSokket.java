@@ -9,10 +9,9 @@ public class MockServerSokket implements ServerSokket {
     private Sokket connectedSokket = null;
     private boolean closed = false;
 
-    public void establishAndListenAtPort(int port) {
+    public MockServerSokket(int port) {
         this.port = port;
     }
-
     public Sokket acceptConnectionAndReturnConnectedSokket() {
         return connectedSokket;
     }

@@ -62,12 +62,20 @@ public class MockAppFactory implements AppFactory {
         this.serverSokket = serverSokket;
     }
 
+    public boolean createdServerSokket() {
+        return createdServerSokket;
+    }
+
     public Reader getReader() {
         return reader;
     }
 
     public void setReader(Reader reader) {
         this.reader = reader;
+    }
+
+    public boolean createdReader() {
+        return createdReader;
     }
 
     public Writer getWriter() {
@@ -78,12 +86,20 @@ public class MockAppFactory implements AppFactory {
         this.writer = writer;
     }
 
+    public boolean createdWriter() {
+        return createdWriter;
+    }
+
     public Runnable getEchoLoop() {
         return echoLoop;
     }
 
     public void setEchoLoop(Runnable echoLoop) {
         this.echoLoop = echoLoop;
+    }
+
+    public boolean createdEchoLoop() {
+        return createdEchoLoop;
     }
 
     public Thread getThread() {
@@ -93,4 +109,9 @@ public class MockAppFactory implements AppFactory {
     public void setThread(Thread thread) {
         this.thread = thread;
     }
+
+    public boolean createdThread() {
+        return createdThread;
+    }
+
 }
