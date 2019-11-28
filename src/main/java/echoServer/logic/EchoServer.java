@@ -8,17 +8,40 @@ import java.io.IOException;
 
 public class EchoServer {
 
-    public static void start(int port, ServerSokketProtocol serverProtocol, AppFactory factory) throws IOException {
-        ServerSokket serverSokket = null;
-        
+    private int port;
+    private ServerSokketProtocol serverProtocol;
+    private AppFactory factory;
+    private ServerSokket serverSokket;
+
+    public EchoServer(int port, ServerSokketProtocol serverProtocol, AppFactory factory) {
+        this.port = port;
+        this.serverProtocol = serverProtocol;
+        this.factory = factory;
+    }
+
+    public void start() throws IOException {
+
         try {
-            serverSokket = factory.createServerSocketListeningAtPort(port);
-            serverProtocol.run(serverSokket, factory);
+            initializeServerSokket();
+            runServerSokketProtocol();
+        } catch (IOException e) {
+            e.printStackTrace();
         } finally {
-            if (serverSokket != null) {
-                serverSokket.close();
-            }
+            closeServerSokket();
         }
+
+    }
+
+    private void initializeServerSokket() throws IOException {
+        serverSokket = factory.createServerSocketListeningAtPort(port);
+    }
+
+    private void runServerSokketProtocol() throws IOException {
+        serverProtocol.run(serverSokket, factory);
+    }
+
+    private void closeServerSokket() throws IOException {
+        serverSokket.close();
     }
 
 }

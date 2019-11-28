@@ -13,7 +13,7 @@ public class App {
         ServerSokketProtocol echoServerProtocol = new EchoServerLoop();
         AppFactory factory = new JavaWrapperAppFactory();
 
-        EchoServer.start(port, echoServerProtocol, factory);
+        new EchoServer(port, echoServerProtocol, factory).start();
     }
 
 }

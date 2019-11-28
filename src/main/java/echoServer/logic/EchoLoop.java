@@ -23,9 +23,10 @@ public class EchoLoop implements Runnable {
         try {
             setReaderAndWriter();
             runEchoLoop();
-            closeReaderAndWriter();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            closeReaderAndWriter();
         }
     }
 
@@ -42,9 +43,13 @@ public class EchoLoop implements Runnable {
         }
     }
 
-    private void closeReaderAndWriter() throws IOException {
-        reader.close();
-        writer.close();
+    private void closeReaderAndWriter() {
+        try {
+            reader.close();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
