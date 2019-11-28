@@ -6,15 +6,29 @@ import java.io.IOException;
 
 public class EchoServerLoop implements ServerSokketProtocol {
 
+    private Sokket connectedSokket;
+    private Thread threadToRun;
+
     @Override
     public void run(ServerSokket serverSokket, AppFactory factory) throws IOException {
         while (true) {
-            Sokket connectedSokket = serverSokket.acceptConnectionAndReturnConnectedSokket();
-            Runnable echoLoop = factory.createEchoLoop(connectedSokket, factory);
-            Thread newThread = factory.createThreadFor(echoLoop);
-            newThread.start();
+            getSokketConnectedToClient(serverSokket);
+            initializeThreadedEchoLoop(factory);
+            runThread();
         }
+    }
 
+    private void getSokketConnectedToClient(ServerSokket serverSokket) throws IOException {
+        connectedSokket = serverSokket.acceptConnectionAndReturnConnectedSokket();
+    }
+
+    private void initializeThreadedEchoLoop(AppFactory factory) {
+        Runnable echoLoop = factory.createEchoLoop(connectedSokket, factory);
+        threadToRun = factory.createThreadFor(echoLoop);
+    }
+
+    private void runThread() {
+        threadToRun.start();
     }
 
 }
