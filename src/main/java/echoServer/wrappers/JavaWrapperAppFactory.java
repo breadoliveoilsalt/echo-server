@@ -11,7 +11,7 @@ import java.io.OutputStream;
 
 public class JavaWrapperAppFactory implements AppFactory {
 
-    public JavaServerSocketWrapper createServerSocketListeningAtPort(int port) throws IOException {
+    public JavaServerSocketWrapper createServerSokketListeningAtPort(int port) throws IOException {
         return new JavaServerSocketWrapper(port);
     }
 

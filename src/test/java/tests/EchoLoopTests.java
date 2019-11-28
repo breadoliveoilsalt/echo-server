@@ -1,7 +1,7 @@
 package tests;
 
 import echoServer.logic.EchoLoop;
-import mocks.MockSokket;
+import mocks.MockSokketOLD;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -13,13 +13,13 @@ import java.util.List;
 
 public class EchoLoopTests {
 
-    private MockSokket sokket;
+    private MockSokketOLD sokket;
     private List<String> messagesFromClient;
     private List<String> expectedSentMessages;
 
     @Before
     public void init() {
-        sokket = new MockSokket();
+        sokket = new MockSokketOLD();
         messagesFromClient = new ArrayList<>();
         expectedSentMessages = new ArrayList<>();
     }

@@ -33,7 +33,7 @@ public class EchoServer {
     }
 
     private void initializeServerSokket() throws IOException {
-        serverSokket = factory.createServerSocketListeningAtPort(port);
+        serverSokket = factory.createServerSokketListeningAtPort(port);
     }
 
     private void runServerSokketProtocol() throws IOException {

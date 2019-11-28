@@ -1,18 +1,9 @@
 package tests;
 
-import static org.junit.Assert.*;
-
 import echoServer.interfaces.AppFactory;
 import echoServer.interfaces.ServerSokketProtocol;
-import echoServer.interfaces.Sokket;
-import echoServer.logic.EchoServer;
-import echoServer.logic.EchoServerLoop;
-import mocks.MockConnectionProtocol;
-import mocks.MockServerSokket;
-import mocks.MockSokket;
 import org.junit.Before;
 import org.junit.Test;
-import java.io.IOException;
 
 public class EchoServerTest {
 

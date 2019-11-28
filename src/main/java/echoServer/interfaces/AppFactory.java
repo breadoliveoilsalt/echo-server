@@ -6,7 +6,7 @@ import java.io.OutputStream;
 
 public interface AppFactory {
 
-    public ServerSokket createServerSocketListeningAtPort(int port) throws IOException;
+    public ServerSokket createServerSokketListeningAtPort(int port) throws IOException;
 
     public Reader createReader(InputStream inputStream);
 
