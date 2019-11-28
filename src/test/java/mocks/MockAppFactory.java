@@ -58,7 +58,7 @@ public class MockAppFactory implements AppFactory {
         return serverSokket;
     }
 
-    public void setServerSokket(ServerSokket serverSokket) {
+    public void setServerSokketToReturn(ServerSokket serverSokket) {
         this.serverSokket = serverSokket;
     }
 
@@ -70,7 +70,7 @@ public class MockAppFactory implements AppFactory {
         return reader;
     }
 
-    public void setReader(Reader reader) {
+    public void setReaderToReturn(Reader reader) {
         this.reader = reader;
     }
 
@@ -82,7 +82,7 @@ public class MockAppFactory implements AppFactory {
         return writer;
     }
 
-    public void setWriter(Writer writer) {
+    public void setWriterToReturn(Writer writer) {
         this.writer = writer;
     }
 
@@ -94,7 +94,7 @@ public class MockAppFactory implements AppFactory {
         return echoLoop;
     }
 
-    public void setEchoLoop(Runnable echoLoop) {
+    public void setEchoLoopToReturn(Runnable echoLoop) {
         this.echoLoop = echoLoop;
     }
 
@@ -106,7 +106,7 @@ public class MockAppFactory implements AppFactory {
         return thread;
     }
 
-    public void setThread(Thread thread) {
+    public void setThreadToReturn(Thread thread) {
         this.thread = thread;
     }
 
