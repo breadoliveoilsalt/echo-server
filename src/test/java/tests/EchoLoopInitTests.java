@@ -1,7 +1,6 @@
 package tests;
 
 import echoServer.interfaces.*;
-import echoServer.logic.EchoLoop;
 import echoServer.logic.EchoLoopInit;
 import mocks.*;
 import org.junit.Before;
@@ -12,8 +11,8 @@ public class EchoLoopInitTests {
 
     private int samplePort = 8000;
     private MockAppFactory factory;
-    private Reader reader;
-    private Writer writer;
+    private MockReader reader;
+    private MockWriter writer;
     private EchoLoopInit echoLoopInit;
     private MockClientWelcome welcomer;
     private MockEchoLoop echoLoop;
@@ -68,5 +67,13 @@ public class EchoLoopInitTests {
         echoLoopInit.run();
 
         assertTrue(echoLoop.wasRun());
+    }
+
+    @Test
+    public void testRunClosesTheReaderAndWriter() {
+        echoLoopInit.run();
+
+        assertTrue(reader.isClosed());
+        assertTrue(writer.isClosed());
     }
 }
