@@ -3,6 +3,7 @@ package mocks;
 import echoServer.interfaces.Reader;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MockReader implements Reader {
@@ -20,7 +21,7 @@ public class MockReader implements Reader {
         closed = true;
     }
 
-    public void setMockMessagesToReceiveFromClient(List<String> mockMessagesToReceiveFromClient) {
+    public void setMockMessagesToReceiveFromClient(ArrayList<String> mockMessagesToReceiveFromClient) {
         this.mockMessagesFromClient = mockMessagesToReceiveFromClient;
     }
 
