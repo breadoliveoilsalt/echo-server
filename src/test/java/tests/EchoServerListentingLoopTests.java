@@ -1,10 +1,7 @@
 package tests;
 
-import echoServer.interfaces.AppFactory;
-import echoServer.interfaces.ServerSokket;
 import echoServer.interfaces.ServerSokketProtocol;
 import echoServer.interfaces.Sokket;
-import echoServer.logic.EchoLoopInit;
 import echoServer.logic.EchoServerListeningLoop;
 import mocks.*;
 
@@ -23,7 +20,7 @@ public class EchoServerListentingLoopTests {
     MockAppFactory factory;
     ServerSokketProtocol echoServerListeningLoop;
     Runnable echoLoopInit;
-    Thread thread;
+    MockThread thread;
 
     @Before
     public void testInit() {
@@ -40,7 +37,7 @@ public class EchoServerListentingLoopTests {
     @Test
     public void testRunLoopGetsASokketConnectedToClient() throws IOException {
         ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
-        serverSokket.setIsBoudnToPort(loopConditionWhetherServerSokketIsBound);
+        serverSokket.setIsBoundToPort(loopConditionWhetherServerSokketIsBound);
 
         echoServerListeningLoop.run(serverSokket, factory);
 
@@ -50,7 +47,7 @@ public class EchoServerListentingLoopTests {
     @ Test
     public void testRunLoopInitializesAThreadedEchoLoop() throws IOException {
         ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
-        serverSokket.setIsBoudnToPort(loopConditionWhetherServerSokketIsBound);
+        serverSokket.setIsBoundToPort(loopConditionWhetherServerSokketIsBound);
 
         echoServerListeningLoop.run(serverSokket, factory);
 
@@ -59,8 +56,13 @@ public class EchoServerListentingLoopTests {
     }
 
     @Test
-    public void testRunStartsTheThread() {
+    public void testRunStartsTheThread() throws IOException {
+        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
+        serverSokket.setIsBoundToPort(loopConditionWhetherServerSokketIsBound);
 
+        echoServerListeningLoop.run(serverSokket, factory);
+
+        assertTrue(thread.wasStarted());
     }
 
 }

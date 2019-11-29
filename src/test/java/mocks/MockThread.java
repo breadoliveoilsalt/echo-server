@@ -2,6 +2,16 @@ package mocks;
 
 public class MockThread extends Thread {
 
-    public void start() { }
+    private boolean started = false;
+
+    public boolean wasStarted() {
+        return started;
+    }
+
+    public void start() {
+        started = true;
+    }
+
+
 
 }
