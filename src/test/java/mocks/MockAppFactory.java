@@ -8,15 +8,10 @@ import java.io.OutputStream;
 
 public class MockAppFactory implements AppFactory {
 
-
     private ServerSokket serverSokket;
     private boolean createdServerSokket = false;
 
-    private Reader reader;
-    private boolean createdReader = false;
 
-    private Writer writer;
-    private boolean createdWriter = false;
 
     private Runnable echoLoopInit;
 
@@ -34,18 +29,49 @@ public class MockAppFactory implements AppFactory {
         return callCountForCreateEchoLoopInit;
     }
 
-    private ClientProtocol echoLoop;
 
+    private Thread thread;
     private int callCountForCreateThreadFor = 0;
-
     public int getCallCountForCreateThreadFor() {
         return callCountForCreateThreadFor;
     }
 
-    private Thread thread;
 
-    public boolean isCreatedWriter() {
-        return createdWriter;
+
+    private Reader reader;
+    public void setReaderToReturn(Reader reader) {
+        this.reader = reader;
+    }
+    private int callCountForCreateReader = 0;
+    public int getCallCountForCreateReader() {
+        return callCountForCreateReader;
+    }
+
+    private Writer writer;
+    public void setWriterToReturn(Writer writer) {
+        this.writer = writer;
+    }
+    private int callCountForCreateWriter = 0;
+    public int getCallCountForCreateWriter() {
+        return callCountForCreateWriter;
+    }
+
+    ClientProtocol welcomer;
+    public void setWelcomerToReturn(ClientProtocol welcomer) {
+        this.welcomer = welcomer;
+    }
+    private int callCountForCreateWelcome = 0;
+    public int getCallCountForCreateWelcome() {
+        return callCountForCreateWelcome;
+    }
+
+    private ClientProtocol echoLoop;
+    public void setEchoLoopToReturn(ClientProtocol echoLoop) {
+        this.echoLoop = echoLoop;
+    }
+    private int callCountForCreateEchoLoopProtocol = 0;
+    public int getCallCountForCreateEchoLoopProtocol() {
+        return callCountForCreateEchoLoopProtocol;
     }
 
     @Override
@@ -64,35 +90,34 @@ public class MockAppFactory implements AppFactory {
 
     @Override
     public Reader createReader(InputStream inputStream) {
-        createdReader = true;
-        return null;
-//        return reader;
+        callCountForCreateReader += 1;
+        return reader;
     }
 
     @Override
     public Writer createWriter(OutputStream outputStream) {
-        createdWriter = true;
-//        return writer;
-        return null;
+        callCountForCreateWriter += 1;
+        return writer;
     }
 
     @Override
     public Runnable createEchoLoopInit(Sokket connectedSokket, AppFactory factory) {
         callCountForCreateEchoLoopInit += 1;
-//        return echoLoopInit;
         return null;
     }
 
     @Override
     public ClientProtocol createWelcome(Writer writer) {
-        return null;
+        callCountForCreateWelcome += 1;
+        return welcomer;
     }
 
     // return null works!!
 
     @Override
-    public ClientProtocol createEchoLoopProtocol(Reader reader, Writer writer) {
-        return null;
+    public ClientProtocol createEchoLoop(Reader reader, Writer writer) {
+        callCountForCreateEchoLoopProtocol += 1;
+        return echoLoop;
     }
 
     @Override
@@ -109,25 +134,11 @@ public class MockAppFactory implements AppFactory {
         return reader;
     }
 
-    public void setReaderToReturn(Reader reader) {
-        this.reader = reader;
-    }
 
-    public boolean createdReader() {
-        return createdReader;
-    }
+//    public boolean createdReader() {
+//        return createdReader;
+//    }
 
-    public Writer getWriter() {
-        return writer;
-    }
-
-    public void setWriterToReturn(Writer writer) {
-        this.writer = writer;
-    }
-
-    public boolean createdWriter() {
-        return createdWriter;
-    }
 
 
 

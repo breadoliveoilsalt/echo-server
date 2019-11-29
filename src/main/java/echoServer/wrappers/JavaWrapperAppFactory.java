@@ -32,7 +32,7 @@ public class JavaWrapperAppFactory implements AppFactory {
        return new EchoLoopClientWelcome(writer);
     }
 
-    public ClientProtocol createEchoLoopProtocol(Reader reader, Writer writer) {
+    public ClientProtocol createEchoLoop(Reader reader, Writer writer) {
         return new EchoLoop(reader, writer);
     }
 

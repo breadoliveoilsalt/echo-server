@@ -16,7 +16,7 @@ public interface AppFactory {
 
     public ClientProtocol createWelcome(Writer writer);
 
-    public ClientProtocol createEchoLoopProtocol(Reader reader, Writer writer);
+    public ClientProtocol createEchoLoop(Reader reader, Writer writer);
 
     public Thread createThreadFor(Runnable runnable);
 
