@@ -1,7 +1,7 @@
 import echoServer.interfaces.AppFactory;
 import echoServer.interfaces.ServerSokketProtocol;
-import echoServer.logic.EchoServer;
-import echoServer.logic.EchoServerLoop;
+import echoServer.logic.EchoServerInit;
+import echoServer.logic.EchoServerListeningLoop;
 import echoServer.wrappers.JavaWrapperAppFactory;
 
 import java.io.IOException;
@@ -10,10 +10,10 @@ public class App {
 
     public static void main(String[] args) throws IOException {
         int port = 8000;
-        ServerSokketProtocol echoServerProtocol = new EchoServerLoop();
+        ServerSokketProtocol echoServerProtocol = new EchoServerListeningLoop();
         AppFactory factory = new JavaWrapperAppFactory();
 
-        new EchoServer(port, echoServerProtocol, factory).start();
+        new EchoServerInit(port, echoServerProtocol, factory).start();
     }
 
 }

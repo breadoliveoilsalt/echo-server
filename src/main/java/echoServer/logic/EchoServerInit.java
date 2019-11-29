@@ -6,16 +6,16 @@ import echoServer.interfaces.ServerSokketProtocol;
 
 import java.io.IOException;
 
-public class EchoServer {
+public class EchoServerInit {
 
     private int port;
-    private ServerSokketProtocol serverProtocol;
+    private ServerSokketProtocol protocol;
     private AppFactory factory;
     private ServerSokket serverSokket;
 
-    public EchoServer(int port, ServerSokketProtocol serverProtocol, AppFactory factory) {
+    public EchoServerInit(int port, ServerSokketProtocol protocol, AppFactory factory) {
         this.port = port;
-        this.serverProtocol = serverProtocol;
+        this.protocol = protocol;
         this.factory = factory;
     }
 
@@ -37,7 +37,7 @@ public class EchoServer {
     }
 
     private void runServerSokketProtocol() throws IOException {
-        serverProtocol.run(serverSokket, factory);
+        protocol.run(serverSokket, factory);
     }
 
     private void closeServerSokket() throws IOException {

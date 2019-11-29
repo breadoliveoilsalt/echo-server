@@ -4,14 +4,14 @@ import echoServer.interfaces.*;
 
 import java.io.IOException;
 
-public class EchoServerLoop implements ServerSokketProtocol {
+public class EchoServerListeningLoop implements ServerSokketProtocol {
 
     private Sokket connectedSokket;
     private Thread threadToRun;
 
     @Override
     public void run(ServerSokket serverSokket, AppFactory factory) throws IOException {
-        while (true) {
+        while (serverSokket.isBoundToAPort()) {
             getSokketConnectedToClient(serverSokket);
             initializeThreadedEchoLoop(factory);
             runThread();
@@ -23,8 +23,8 @@ public class EchoServerLoop implements ServerSokketProtocol {
     }
 
     private void initializeThreadedEchoLoop(AppFactory factory) {
-        Runnable echoLoop = factory.createEchoLoop(connectedSokket, factory);
-        threadToRun = factory.createThreadFor(echoLoop);
+        Runnable echoLoopInit = factory.createEchoLoopInit(connectedSokket, factory);
+        threadToRun = factory.createThreadFor(echoLoopInit);
     }
 
     private void runThread() {

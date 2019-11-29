@@ -3,19 +3,26 @@ package mocks;
 import echoServer.interfaces.ServerSokket;
 import echoServer.interfaces.Sokket;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MockServerSokket implements ServerSokket {
 
     private int port;
     private Sokket connectedSokket = null;
     private boolean closed = false;
+    private List<Boolean> boundToAPort;
 
     public MockServerSokket(int port) {
         this.port = port;
     }
+
+    @Override
     public Sokket acceptConnectionAndReturnConnectedSokket() {
         return connectedSokket;
     }
 
+    @Override
     public void close() {
         closed = true;
     }
@@ -30,6 +37,15 @@ public class MockServerSokket implements ServerSokket {
 
     public void setMockSokketToReturnFollowingConnection(Sokket sokket) {
         connectedSokket = sokket;
+    }
+
+    @Override
+    public boolean isBoundToAPort() {
+        return boundToAPort.remove(0);
+    }
+
+    public void setIsBoudnToPort(ArrayList<Boolean> loopOccurences) {
+        boundToAPort = loopOccurences;
     }
 }
 

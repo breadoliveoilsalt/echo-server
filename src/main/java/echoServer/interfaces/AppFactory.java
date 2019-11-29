@@ -12,7 +12,11 @@ public interface AppFactory {
 
     public Writer createWriter(OutputStream outputStream);
 
-    public Runnable createEchoLoop(Sokket connectedSokket, AppFactory factory);
+    public Runnable createEchoLoopInit(Sokket connectedSokket, AppFactory factory);
+
+    public ClientProtocol createWelcomer(Writer writer);
+
+    public ClientProtocol createEchoLoopProtocol;
 
     public Thread createThreadFor(Runnable runnable);
 

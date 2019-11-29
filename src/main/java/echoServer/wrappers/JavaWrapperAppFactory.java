@@ -1,8 +1,11 @@
 package echoServer.wrappers;
 
 import echoServer.interfaces.AppFactory;
+import echoServer.interfaces.ClientProtocol;
 import echoServer.interfaces.Sokket;
+import echoServer.interfaces.Writer;
 import echoServer.logic.EchoLoop;
+import echoServer.logic.EchoLoopInit;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,8 +26,12 @@ public class JavaWrapperAppFactory implements AppFactory {
         return new JavaPrintWriterWrapper(outputStream);
     }
 
-    public Runnable createEchoLoop(Sokket connectedSokket, AppFactory factory) {
-        return new EchoLoop(connectedSokket, factory);
+    public Runnable createEchoLoopInit(Sokket connectedSokket, AppFactory factory) {
+        return new EchoLoopInit(connectedSokket, factory);
+    }
+
+    public ClientProtocol createWelcome(Writer writer) {
+       return new EchoLoopClientWelcome(writer);
     }
 
     public Thread createThreadFor(Runnable runnable) {

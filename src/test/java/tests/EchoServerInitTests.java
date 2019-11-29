@@ -1,6 +1,6 @@
 package tests;
 
-import echoServer.logic.EchoServer;
+import echoServer.logic.EchoServerInit;
 import mocks.MockAppFactory;
 import mocks.MockServerSokket;
 import mocks.MockServerSokketProtocol;
@@ -11,21 +11,21 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-public class EchoServerTests {
+public class EchoServerInitTests {
 
     private int samplePort = 8000;
     private MockServerSokketProtocol protocol;
     private MockServerSokket serverSokket;
     private MockAppFactory factory;
-    private EchoServer echoServer;
+    private EchoServerInit echoServer;
 
     @Before
-    public void init() {
+    public void testInit() {
         protocol = new MockServerSokketProtocol();
         serverSokket = new MockServerSokket(samplePort);
         factory = new MockAppFactory();
         factory.setServerSokketToReturn(serverSokket);
-        echoServer = new EchoServer(samplePort, protocol, factory);
+        echoServer = new EchoServerInit(samplePort, protocol, factory);
     }
 
     @Test
