@@ -11,13 +11,12 @@ import static org.junit.Assert.*;
 public class EchoLoopInitTests {
 
     private int samplePort = 8000;
-    private Sokket sokket;
     private MockAppFactory factory;
     private Reader reader;
     private Writer writer;
     private EchoLoopInit echoLoopInit;
     private MockClientWelcome welcomer;
-    private EchoLoop echoLoop;
+    private MockEchoLoop echoLoop;
 
     @Before
     public void testInit() {
@@ -38,7 +37,7 @@ public class EchoLoopInitTests {
     }
 
     private void initEchoLoopInit() {
-        sokket = new MockSokket(samplePort);
+        Sokket sokket = new MockSokket(samplePort);
         echoLoopInit = new EchoLoopInit(sokket, factory);
     }
 
@@ -62,5 +61,12 @@ public class EchoLoopInitTests {
         echoLoopInit.run();
 
         assertEquals(1, welcomer.getCallCountForRun());
+    }
+
+    @Test
+    public void testRunRunsTheEchoLoop() {
+        echoLoopInit.run();
+
+        assertTrue(echoLoop.wasRun());
     }
 }
