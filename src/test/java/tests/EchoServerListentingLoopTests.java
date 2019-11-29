@@ -1,6 +1,5 @@
 package tests;
 
-import echoServer.interfaces.ServerSokket;
 import echoServer.interfaces.ServerSokketProtocol;
 import echoServer.interfaces.Sokket;
 import echoServer.logic.EchoServerListeningLoop;
@@ -17,22 +16,38 @@ import java.util.Arrays;
 public class EchoServerListentingLoopTests {
 
     private int samplePort = 8000;
-    MockServerSokket serverSokket;
-    MockAppFactory factory;
-    ServerSokketProtocol echoServerListeningLoop;
-    Runnable echoLoopInit;
-    MockThread thread;
+    private MockServerSokket serverSokket;
+    private MockAppFactory factory;
+    private ServerSokketProtocol echoServerListeningLoop;
+    private Runnable echoLoopInit;
+    private MockThread thread;
 
     @Before
     public void testInit() {
+        initServerSokket();
+        initFactory();
+        setLoopToRunOnce();
+    }
+
+    private void initServerSokket() {
         Sokket sokket = new MockSokket(samplePort);
         serverSokket = new MockServerSokket(samplePort);
         serverSokket.setMockSokketToReturnFollowingConnection(sokket);
+    }
+
+    private void initFactory() {
         factory = new MockAppFactory();
         echoServerListeningLoop = new EchoServerListeningLoop();
         thread = new MockThread();
-        factory.setEchoLoopInitToReturn(echoLoopInit);
+//        note I don't seem to need this
+//        and this will dictate what I need in the factory
+//        factory.setEchoLoopInitToReturn(echoLoopInit);
         factory.setThreadToReturn(thread);
+    }
+
+    private void setLoopToRunOnce() {
+        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
+        serverSokket.setIsBoundToPort(loopConditionWhetherServerSokketIsBound);
     }
 
     @Test
@@ -60,40 +75,24 @@ public class EchoServerListentingLoopTests {
 
         echoServerListeningLoop.run(serverSokket, factory);
 
-        assertTrue(thread.wasStarted());
+        assertEquals(1, thread.getCallCountForStart());
     }
-//
-//    @Test
-//    public void testRunLoopRepeatsSoLongAsServerSokketIsBound() {
-//        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
-//        serverSokket.setIsBoundToPort(loopConditionWhetherServerSokketIsBound);
-//
-//    }
 
-    private void setLoopToRunOnce() {
-        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
+    @Test
+    public void testRunLoopRepeatsSoLongAsServerSokketIsBound() throws IOException {
+        setLoopToRunThreeTimes();
+
+        echoServerListeningLoop.run(serverSokket, factory);
+
+        assertEquals(3, serverSokket.getCallCountForAcceptConnectionAndReturnConnectedSokket());
+        assertEquals(3, factory.getCallCountForCreateEchoLoopInit());
+        assertEquals(3, factory.getCallCountForCreateThreadFor());
+        assertEquals(3, thread.getCallCountForStart());
+
+    }
+
+    private void setLoopToRunThreeTimes() {
+        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, true, true, false));
         serverSokket.setIsBoundToPort(loopConditionWhetherServerSokketIsBound);
     }
-
 }
-//    @Override
-//    public void run(ServerSokket serverSokket, AppFactory factory) throws IOException {
-//        while (serverSokket.isBoundToAPort()) {
-//            getSokketConnectedToClient(serverSokket);
-//            initializeThreadedEchoLoop(factory);
-//            runThread();
-//        }
-//    }
-//
-//    private void getSokketConnectedToClient(ServerSokket serverSokket) throws IOException {
-//        connectedSokket = serverSokket.acceptConnectionAndReturnConnectedSokket();
-//    }
-//
-//    private void initializeThreadedEchoLoop(AppFactory factory) {
-//        Runnable echoLoopInit = factory.createEchoLoopInit(connectedSokket, factory);
-//        threadToRun = factory.createThreadFor(echoLoopInit);
-//    }
-//
-//    private void runThread() {
-//        threadToRun.start();
-//}

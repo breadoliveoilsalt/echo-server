@@ -2,16 +2,14 @@ package mocks;
 
 public class MockThread extends Thread {
 
-    private boolean started = false;
+    private int callCountForStart = 0;
 
-    public boolean wasStarted() {
-        return started;
+    public int getCallCountForStart() {
+        return callCountForStart;
     }
 
     public void start() {
-        started = true;
+        callCountForStart += 1;
     }
-
-
 
 }
