@@ -1,5 +1,6 @@
 package tests;
 
+import echoServer.interfaces.ServerSokket;
 import echoServer.interfaces.ServerSokketProtocol;
 import echoServer.interfaces.Sokket;
 import echoServer.logic.EchoServerListeningLoop;
@@ -36,8 +37,7 @@ public class EchoServerListentingLoopTests {
 
     @Test
     public void testRunLoopGetsASokketConnectedToClient() throws IOException {
-        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
-        serverSokket.setIsBoundToPort(loopConditionWhetherServerSokketIsBound);
+        setLoopToRunOnce();
 
         echoServerListeningLoop.run(serverSokket, factory);
 
@@ -46,8 +46,7 @@ public class EchoServerListentingLoopTests {
 
     @ Test
     public void testRunLoopInitializesAThreadedEchoLoop() throws IOException {
-        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
-        serverSokket.setIsBoundToPort(loopConditionWhetherServerSokketIsBound);
+        setLoopToRunOnce();
 
         echoServerListeningLoop.run(serverSokket, factory);
 
@@ -56,13 +55,24 @@ public class EchoServerListentingLoopTests {
     }
 
     @Test
-    public void testRunStartsTheThread() throws IOException {
-        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
-        serverSokket.setIsBoundToPort(loopConditionWhetherServerSokketIsBound);
+    public void testRunLoopStartsTheThread() throws IOException {
+        setLoopToRunOnce();
 
         echoServerListeningLoop.run(serverSokket, factory);
 
         assertTrue(thread.wasStarted());
+    }
+//
+//    @Test
+//    public void testRunLoopRepeatsSoLongAsServerSokketIsBound() {
+//        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
+//        serverSokket.setIsBoundToPort(loopConditionWhetherServerSokketIsBound);
+//
+//    }
+
+    private void setLoopToRunOnce() {
+        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
+        serverSokket.setIsBoundToPort(loopConditionWhetherServerSokketIsBound);
     }
 
 }
