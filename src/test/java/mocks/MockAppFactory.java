@@ -8,7 +8,6 @@ import java.io.OutputStream;
 
 public class MockAppFactory implements AppFactory {
 
-
     private ServerSokket serverSokket;
     private boolean createdServerSokket = false;
 
@@ -18,11 +17,37 @@ public class MockAppFactory implements AppFactory {
     private Writer writer;
     private boolean createdWriter = false;
 
-    private Runnable echoLoop;
-    private boolean createdEchoLoop = false;
+    private Runnable echoLoopInit;
+
+    public void setEchoLoopInitToReturn(Runnable echoLoop) {
+        this.echoLoopInit = echoLoopInit;
+    }
+
+    public Runnable getEchoLoopInit() {
+        return echoLoopInit;
+    }
+
+    private int callCountCreatedEchoLoopInit = 0;
+
+    public int getCallCountCreatedEchoLoopInit() {
+        return callCountCreatedEchoLoopInit;
+    }
+
+    private ClientProtocol echoLoop;
+
+
 
     private Thread thread;
-    private boolean createdThread = false;
+
+    public Thread getThread() {
+        return thread;
+    }
+
+    public void setThreadToReturn(Thread thread) {
+        this.thread = thread;
+    }
+
+
 
     @Override
     public ServerSokket createServerSokketListeningAtPort(int port) throws IOException {
@@ -30,36 +55,50 @@ public class MockAppFactory implements AppFactory {
         return serverSokket;
     }
 
-    @Override
-    public Reader createReader(InputStream inputStream) {
-        createdReader = true;
-        return reader;
-    }
-
-    @Override
-    public Writer createWriter(OutputStream outputStream) {
-        createdWriter = true;
-        return writer;
-    }
-
-    @Override
-    public Runnable createEchoLoop(Sokket connectedSokket, AppFactory factory) {
-        createdEchoLoop = true;
-        return echoLoop;
-    }
-
-    @Override
-    public Thread createThreadFor(Runnable runnable) {
-        createdThread = true;
-        return thread;
+    public void setServerSokketToReturn(ServerSokket serverSokket) {
+        this.serverSokket = serverSokket;
     }
 
     public ServerSokket getServerSokket() {
         return serverSokket;
     }
 
-    public void setServerSokketToReturn(ServerSokket serverSokket) {
-        this.serverSokket = serverSokket;
+    @Override
+    public Reader createReader(InputStream inputStream) {
+        createdReader = true;
+        return null;
+//        return reader;
+    }
+
+    @Override
+    public Writer createWriter(OutputStream outputStream) {
+        createdWriter = true;
+//        return writer;
+        return null;
+    }
+
+    @Override
+    public Runnable createEchoLoopInit(Sokket connectedSokket, AppFactory factory) {
+        callCountCreatedEchoLoopInit += 1;
+//        return echoLoopInit;
+        return null;
+    }
+
+    @Override
+    public ClientProtocol createWelcome(Writer writer) {
+        return null;
+    }
+
+    // return null works!!
+
+    @Override
+    public ClientProtocol createEchoLoopProtocol(Reader reader, Writer writer) {
+        return null;
+    }
+
+    @Override
+    public Thread createThreadFor(Runnable runnable) {
+        return thread;
     }
 
     public boolean createdServerSokket() {
@@ -90,28 +129,14 @@ public class MockAppFactory implements AppFactory {
         return createdWriter;
     }
 
-    public Runnable getEchoLoop() {
-        return echoLoop;
-    }
 
-    public void setEchoLoopToReturn(Runnable echoLoop) {
-        this.echoLoop = echoLoop;
-    }
 
-    public boolean createdEchoLoop() {
-        return createdEchoLoop;
-    }
+//    public boolean createdEchoLoop() {
+//        return createdEchoLoop;
+//    }
 
-    public Thread getThread() {
-        return thread;
-    }
-
-    public void setThreadToReturn(Thread thread) {
-        this.thread = thread;
-    }
-
-    public boolean createdThread() {
-        return createdThread;
-    }
+//    public boolean createdThread() {
+//        return createdThread;
+//    }
 
 }

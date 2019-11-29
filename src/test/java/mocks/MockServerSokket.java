@@ -17,8 +17,15 @@ public class MockServerSokket implements ServerSokket {
         this.port = port;
     }
 
+    private int callCountForAcceptConnectionAndReturnConnectedSokket = 0;
+
+    public int getCallCountForAcceptConnectionAndReturnConnectedSokket() {
+        return callCountForAcceptConnectionAndReturnConnectedSokket;
+    }
+
     @Override
     public Sokket acceptConnectionAndReturnConnectedSokket() {
+        callCountForAcceptConnectionAndReturnConnectedSokket += 1;
         return connectedSokket;
     }
 
@@ -37,6 +44,10 @@ public class MockServerSokket implements ServerSokket {
 
     public void setMockSokketToReturnFollowingConnection(Sokket sokket) {
         connectedSokket = sokket;
+    }
+
+    public Sokket getConnectedSokket() {
+        return connectedSokket;
     }
 
     @Override
