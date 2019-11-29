@@ -3,11 +3,11 @@ package echoServer.logic;
 import echoServer.interfaces.ClientProtocol;
 import echoServer.interfaces.Writer;
 
-public class EchoLoopClientWelcome {
+public class EchoLoopClientWelcome implements ClientProtocol {
 
     Writer writer;
 
-    public EchoLoopClientWelcome(Writer writer) implements ClientProtocol {
+    public EchoLoopClientWelcome(Writer writer) {
         this.writer = writer;
     };
 

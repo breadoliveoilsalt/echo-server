@@ -14,9 +14,9 @@ public interface AppFactory {
 
     public Runnable createEchoLoopInit(Sokket connectedSokket, AppFactory factory);
 
-    public ClientProtocol createWelcomer(Writer writer);
+    public ClientProtocol createWelcome(Writer writer);
 
-    public ClientProtocol createEchoLoopProtocol;
+    public ClientProtocol createEchoLoopProtocol(Reader reader, Writer writer);
 
     public Thread createThreadFor(Runnable runnable);
 

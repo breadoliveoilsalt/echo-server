@@ -1,7 +1,9 @@
 package echoServer.interfaces;
 
+import java.io.IOException;
+
 public interface ClientProtocol {
 
-    void run();
+    void run() throws IOException;
 
 }

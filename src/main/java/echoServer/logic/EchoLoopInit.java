@@ -4,7 +4,7 @@ import echoServer.interfaces.*;
 
 import java.io.IOException;
 
-public class EchoLoopInit implements Runnable {
+public class EchoLoopInit implements Runnable, ClientProtocol {
 
     private Sokket sokket;
     private AppFactory factory;
@@ -33,15 +33,14 @@ public class EchoLoopInit implements Runnable {
         writer = factory.createWriter(sokket.getOutputStream());
     }
 
-    private void welcomeClient() {
-        ClientProtocol welcomer = factory.createWelcomer(writer);
-        welcomer.printWelcome();
+    private void welcomeClient() throws IOException {
+        ClientProtocol welcomer = factory.createWelcome(writer);
+        welcomer.run();
     }
 
-    private void runEchoLoop() {
+    private void runEchoLoop() throws IOException {
         ClientProtocol echoLoop = factory.createEchoLoopProtocol(reader, writer);
         echoLoop.run();
-
     }
 
     private void closeReaderAndWriter() {

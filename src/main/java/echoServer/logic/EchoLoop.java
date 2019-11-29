@@ -1,54 +1,24 @@
 package echoServer.logic;
 
-import echoServer.interfaces.AppFactory;
-import echoServer.interfaces.Reader;
-import echoServer.interfaces.Sokket;
-import echoServer.interfaces.Writer;
+import echoServer.interfaces.*;
 
 import java.io.IOException;
 
-public class EchoLoop implements Runnable {
+public class EchoLoop implements ClientProtocol {
 
-    private Sokket sokket;
-    private AppFactory factory;
     private Reader reader;
     private Writer writer;
 
-    public EchoLoop(Sokket sokket, AppFactory factory) {
-        this.sokket = sokket;
-        this.factory = factory;
+    public EchoLoop(Reader reader, Writer writer) {
+        this.reader = reader;
+        this.writer = writer;
     }
 
-    public void run() {
-        try {
-            setReaderAndWriter();
-            runEchoLoop();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            closeReaderAndWriter();
-        }
-    }
-
-    private void setReaderAndWriter() throws IOException {
-        reader = factory.createReader(sokket.getInputStream());
-        writer = factory.createWriter(sokket.getOutputStream());
-    }
-
-    private void runEchoLoop() throws IOException {
+    public void run() throws IOException {
         String clientMessage = reader.readLine();
         while (!clientMessage.equals("exit!")) {
             writer.printLine(clientMessage);
             clientMessage = reader.readLine();
-        }
-    }
-
-    private void closeReaderAndWriter() {
-        try {
-            reader.close();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

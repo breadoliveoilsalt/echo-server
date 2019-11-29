@@ -1,10 +1,8 @@
 package echoServer.wrappers;
 
-import echoServer.interfaces.AppFactory;
-import echoServer.interfaces.ClientProtocol;
-import echoServer.interfaces.Sokket;
-import echoServer.interfaces.Writer;
+import echoServer.interfaces.*;
 import echoServer.logic.EchoLoop;
+import echoServer.logic.EchoLoopClientWelcome;
 import echoServer.logic.EchoLoopInit;
 
 import java.io.IOException;
@@ -32,6 +30,10 @@ public class JavaWrapperAppFactory implements AppFactory {
 
     public ClientProtocol createWelcome(Writer writer) {
        return new EchoLoopClientWelcome(writer);
+    }
+
+    public ClientProtocol createEchoLoopProtocol(Reader reader, Writer writer) {
+        return new EchoLoop(reader, writer);
     }
 
     public Thread createThreadFor(Runnable runnable) {
