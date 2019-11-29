@@ -49,4 +49,18 @@ public class EchoLoopInitTests {
         assertEquals(1, factory.getCallCountForCreateReader());
         assertEquals(1, factory.getCallCountForCreateWriter());
     }
+
+    @Test
+    public void testRunCreatesAnInstanceOfAClientWelcomeProtocol() {
+        echoLoopInit.run();
+
+        assertEquals(1, factory.getCallCountForCreateWelcome() );
+    }
+
+    @Test
+    public void testRunWelcomesTheClientByRunningTheClientWelcomeProtocol() {
+        echoLoopInit.run();
+
+        assertEquals(1, welcomer.getCallCountForRun());
+    }
 }
