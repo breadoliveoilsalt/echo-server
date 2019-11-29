@@ -39,12 +39,28 @@ public class EchoServerListentingLoopTests {
 
     @Test
     public void testRunLoopGetsASokketConnectedToClient() throws IOException {
-        ArrayList<Boolean> serverSokketIsBound = new ArrayList(Arrays.asList(true, false));
-        serverSokket.setIsBoudnToPort(serverSokketIsBound);
+        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
+        serverSokket.setIsBoudnToPort(loopConditionWhetherServerSokketIsBound);
 
         echoServerListeningLoop.run(serverSokket, factory);
 
         assertEquals(1, serverSokket.getCallCountForAcceptConnectionAndReturnConnectedSokket());
+    }
+
+    @ Test
+    public void testRunLoopInitializesAThreadedEchoLoop() throws IOException {
+        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
+        serverSokket.setIsBoudnToPort(loopConditionWhetherServerSokketIsBound);
+
+        echoServerListeningLoop.run(serverSokket, factory);
+
+        assertEquals(1, factory.getCallCountForCreateEchoLoopInit());
+        assertEquals(1, factory.getCallCountForCreateThreadFor());
+    }
+
+    @Test
+    public void testRunStartsTheThread() {
+
     }
 
 }

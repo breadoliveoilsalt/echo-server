@@ -8,6 +8,7 @@ import java.io.OutputStream;
 
 public class MockAppFactory implements AppFactory {
 
+
     private ServerSokket serverSokket;
     private boolean createdServerSokket = false;
 
@@ -27,27 +28,25 @@ public class MockAppFactory implements AppFactory {
         return echoLoopInit;
     }
 
-    private int callCountCreatedEchoLoopInit = 0;
+    private int callCountForCreateEchoLoopInit = 0;
 
-    public int getCallCountCreatedEchoLoopInit() {
-        return callCountCreatedEchoLoopInit;
+    public int getCallCountForCreateEchoLoopInit() {
+        return callCountForCreateEchoLoopInit;
     }
 
     private ClientProtocol echoLoop;
 
+    private int callCountForCreateThreadFor = 0;
 
+    public int getCallCountForCreateThreadFor() {
+        return callCountForCreateThreadFor;
+    }
 
     private Thread thread;
 
-    public Thread getThread() {
-        return thread;
+    public boolean isCreatedWriter() {
+        return createdWriter;
     }
-
-    public void setThreadToReturn(Thread thread) {
-        this.thread = thread;
-    }
-
-
 
     @Override
     public ServerSokket createServerSokketListeningAtPort(int port) throws IOException {
@@ -79,7 +78,7 @@ public class MockAppFactory implements AppFactory {
 
     @Override
     public Runnable createEchoLoopInit(Sokket connectedSokket, AppFactory factory) {
-        callCountCreatedEchoLoopInit += 1;
+        callCountForCreateEchoLoopInit += 1;
 //        return echoLoopInit;
         return null;
     }
@@ -98,6 +97,7 @@ public class MockAppFactory implements AppFactory {
 
     @Override
     public Thread createThreadFor(Runnable runnable) {
+        callCountForCreateThreadFor += 1;
         return thread;
     }
 
@@ -134,6 +134,14 @@ public class MockAppFactory implements AppFactory {
 //    public boolean createdEchoLoop() {
 //        return createdEchoLoop;
 //    }
+
+    public Thread getThread() {
+        return thread;
+    }
+
+    public void setThreadToReturn(Thread thread) {
+        this.thread = thread;
+    }
 
 //    public boolean createdThread() {
 //        return createdThread;
