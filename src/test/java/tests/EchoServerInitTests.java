@@ -12,7 +12,6 @@ import java.io.IOException;
 
 public class EchoServerInitTests {
 
-    private int samplePort = 8000;
     private MockServerSokketProtocol protocol;
     private MockServerSokket serverSokket;
     private MockAppFactory factory;
@@ -22,8 +21,9 @@ public class EchoServerInitTests {
     public void testInit() {
         protocol = new MockServerSokketProtocol();
         serverSokket = new MockServerSokket();
-        factory = new MockAppFactory();
-        factory.setServerSokketToReturn(serverSokket);
+        factory = new MockAppFactory()
+            .setServerSokketToReturn(serverSokket);
+        int samplePort = 8000;
         echoServer = new EchoServerInit(samplePort, protocol, factory);
     }
 

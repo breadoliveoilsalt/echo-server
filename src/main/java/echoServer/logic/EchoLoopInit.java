@@ -25,6 +25,11 @@ public class EchoLoopInit implements Runnable, ClientProtocol {
             e.printStackTrace();
         } finally {
             closeReaderAndWriter();
+            try {
+                closeSokket();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -50,6 +55,10 @@ public class EchoLoopInit implements Runnable, ClientProtocol {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void closeSokket() throws IOException {
+        sokket.close();
     }
 
 }

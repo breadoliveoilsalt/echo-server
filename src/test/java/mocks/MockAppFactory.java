@@ -8,8 +8,9 @@ import java.io.OutputStream;
 public class MockAppFactory implements AppFactory {
 
     private ServerSokket serverSokket;
-    public void setServerSokketToReturn(ServerSokket serverSokket) {
+    public MockAppFactory setServerSokketToReturn(ServerSokket serverSokket) {
         this.serverSokket = serverSokket;
+        return this;
     }
     private int callCountForCreateServerSokket = 0;
     public int getCallCountForCreateServerSokket() {
@@ -17,8 +18,9 @@ public class MockAppFactory implements AppFactory {
     }
 
     private Runnable echoLoopInit;
-    public void setEchoLoopInitToReturn(Runnable echoLoopInit) {
+    public MockAppFactory setEchoLoopInitToReturn(Runnable echoLoopInit) {
         this.echoLoopInit = echoLoopInit;
+        return this;
     }
     private int callCountForCreateEchoLoopInit = 0;
     public int getCallCountForCreateEchoLoopInit() {
@@ -26,8 +28,9 @@ public class MockAppFactory implements AppFactory {
     }
 
     private Thread thread;
-    public void setThreadToReturn(Thread thread) {
+    public MockAppFactory setThreadToReturn(Thread thread) {
         this.thread = thread;
+        return this;
     }
     private int callCountForCreateThreadFor = 0;
     public int getCallCountForCreateThreadFor() {
@@ -35,8 +38,9 @@ public class MockAppFactory implements AppFactory {
     }
 
     private Reader reader;
-    public void setReaderToReturn(Reader reader) {
+    public MockAppFactory setReaderToReturn(Reader reader) {
         this.reader = reader;
+        return this;
     }
     private int callCountForCreateReader = 0;
     public int getCallCountForCreateReader() {
@@ -44,8 +48,9 @@ public class MockAppFactory implements AppFactory {
     }
 
     private Writer writer;
-    public void setWriterToReturn(Writer writer) {
+    public MockAppFactory setWriterToReturn(Writer writer) {
         this.writer = writer;
+        return this;
     }
     private int callCountForCreateWriter = 0;
     public int getCallCountForCreateWriter() {
@@ -53,8 +58,9 @@ public class MockAppFactory implements AppFactory {
     }
 
     private ClientProtocol welcomer;
-    public void setWelcomerToReturn(ClientProtocol welcomer) {
+    public MockAppFactory setWelcomerToReturn(ClientProtocol welcomer) {
         this.welcomer = welcomer;
+        return this;
     }
     private int callCountForCreateWelcome = 0;
     public int getCallCountForCreateWelcome() {
@@ -62,8 +68,9 @@ public class MockAppFactory implements AppFactory {
     }
 
     private ClientProtocol echoLoop;
-    public void setEchoLoopToReturn(ClientProtocol echoLoop) {
+    public MockAppFactory setEchoLoopToReturn(ClientProtocol echoLoop) {
         this.echoLoop = echoLoop;
+        return this;
     }
     private int callCountForCreateEchoLoop = 0;
     public int getCallCountForCreateEchoLoop() {

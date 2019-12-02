@@ -1,6 +1,5 @@
 package tests;
 
-import echoServer.interfaces.*;
 import echoServer.logic.EchoLoopInit;
 import mocks.*;
 import org.junit.Before;
@@ -9,10 +8,10 @@ import static org.junit.Assert.*;
 
 public class EchoLoopInitTests {
 
-    private int samplePort = 8000;
     private MockAppFactory factory;
     private MockReader reader;
     private MockWriter writer;
+    private MockSokket sokket;
     private EchoLoopInit echoLoopInit;
     private MockClientWelcome welcomer;
     private MockEchoLoop echoLoop;
@@ -24,27 +23,36 @@ public class EchoLoopInitTests {
     }
 
     private void initFactory() {
-        factory = new MockAppFactory();
         reader = new MockReader();
-        factory.setReaderToReturn(reader);
         writer = new MockWriter();
-        factory.setWriterToReturn(writer);
         welcomer = new MockClientWelcome();
-        factory.setWelcomerToReturn(welcomer);
         echoLoop = new MockEchoLoop(reader, writer);
-        factory.setEchoLoopToReturn(echoLoop);
+        factory = new MockAppFactory()
+            .setReaderToReturn(reader)
+            .setWriterToReturn(writer)
+            .setWelcomerToReturn(welcomer)
+            .setEchoLoopToReturn(echoLoop);
     }
 
     private void initEchoLoopInit() {
-        Sokket sokket = new MockSokket(samplePort);
+        int samplePort = 8000;
+        sokket = new MockSokket(samplePort);
         echoLoopInit = new EchoLoopInit(sokket, factory);
     }
 
     @Test
-    public void testRunInitializesAReaderAndWriter() {
+    public void testRunGetsInputStreamFromSokketAndInitializesAReader() {
         echoLoopInit.run();
 
+        assertTrue(sokket.gotInputStream());
         assertEquals(1, factory.getCallCountForCreateReader());
+    }
+
+    @Test
+    public void testRunGetsOutputStreamFromSokketAndInitializesAWriter() {
+        echoLoopInit.run();
+
+        assertTrue(sokket.gotOutputStream());
         assertEquals(1, factory.getCallCountForCreateWriter());
     }
 
@@ -76,5 +84,12 @@ public class EchoLoopInitTests {
 
         assertTrue(reader.isClosed());
         assertTrue(writer.isClosed());
+    }
+
+    @Test
+    public void testRunClosesTheSokket() {
+        echoLoopInit.run();
+
+        assertTrue(sokket.isClosed());
     }
 }

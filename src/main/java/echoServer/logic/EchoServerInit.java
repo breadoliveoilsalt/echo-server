@@ -44,8 +44,4 @@ public class EchoServerInit {
         serverSokket.close();
     }
 
-    public ServerSokket getServerSokket() {
-        return serverSokket;
-    }
-
 }

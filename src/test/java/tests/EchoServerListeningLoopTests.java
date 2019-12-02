@@ -13,9 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class EchoServerListentingLoopTests {
+public class EchoServerListeningLoopTests {
 
-    private int samplePort = 8000;
     private MockServerSokket serverSokket;
     private MockAppFactory factory;
     private MockEchoLoopInit echoLoopInit;
@@ -26,21 +25,26 @@ public class EchoServerListentingLoopTests {
     public void testInit() {
         initServerSokket();
         initFactory();
+        initEchoServerListentingLoop();
         setLoopToRunOnce();
     }
 
     private void initServerSokket() {
+        int samplePort = 8000;
         Sokket sokket = new MockSokket(samplePort);
         serverSokket = new MockServerSokket();
         serverSokket.setMockSokketToReturnFollowingConnection(sokket);
     }
 
     private void initFactory() {
-        factory = new MockAppFactory();
         echoLoopInit = new MockEchoLoopInit();
         thread = new MockThread(echoLoopInit);
-        factory.setThreadToReturn(thread);
-        factory.setEchoLoopInitToReturn(echoLoopInit);
+        factory = new MockAppFactory()
+            .setThreadToReturn(thread)
+            .setEchoLoopInitToReturn(echoLoopInit);
+    }
+
+    private void initEchoServerListentingLoop() {
         echoServerListeningLoop = new EchoServerListeningLoop();
     }
 

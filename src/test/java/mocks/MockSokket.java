@@ -2,7 +2,6 @@ package mocks;
 
 import echoServer.interfaces.Sokket;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -18,19 +17,19 @@ public class MockSokket implements Sokket {
     }
 
     @Override
-    public InputStream getInputStream() throws IOException {
+    public InputStream getInputStream() {
         gotInputStream = true;
         return new MockInputStream();
     }
 
     @Override
-    public OutputStream getOutputStream() throws IOException {
-        gotInputStream = true;
+    public OutputStream getOutputStream() {
+        gotOutputStream = true;
         return new MockOutputStream();
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         closed = true;
     }
 
