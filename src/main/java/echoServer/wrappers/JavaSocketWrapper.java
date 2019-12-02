@@ -7,27 +7,23 @@ import java.net.Socket;
 
 public class JavaSocketWrapper implements Sokket {
 
-    private Socket socket;
-    private BufferedReader reader;
-    private PrintWriter writer;
+    private final Socket socket;
 
-    public JavaSocketWrapper(Socket socket) throws IOException {
+    public JavaSocketWrapper(Socket socket) {
         this.socket = socket;
-        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        writer = new PrintWriter(socket.getOutputStream(), true);
     }
 
-    public void sendToOutputStream(String message) {
-        writer.println(message);
+    @Override
+    public InputStream getInputStream() throws IOException {
+        return socket.getInputStream();
     }
 
-    public String readLine() throws IOException {
-       return reader.readLine();
+    @Override
+    public OutputStream getOutputStream() throws IOException {
+        return socket.getOutputStream();
     }
 
     public void close() throws IOException {
-        reader.close();
-        writer.close();
         socket.close();
     }
 

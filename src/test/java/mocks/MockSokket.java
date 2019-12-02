@@ -2,40 +2,45 @@ package mocks;
 
 import echoServer.interfaces.Sokket;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class MockSokket implements Sokket {
 
-    private List mockMessagesFromClient;
-    private int currentMessagePointer = 0;
-    private List<String> messagesSentToClient = new ArrayList<>();
+    private boolean gotInputStream = false;
+    public boolean gotInputStream() {
+        return gotInputStream;
+    }
+
+    private boolean gotOutputStream = false;
+    public boolean gotOutputStream() {
+        return gotOutputStream;
+    }
+
     private boolean closed = false;
-
-    public void sendToOutputStream(String message) {
-        messagesSentToClient.add(message);
-    }
-
-    public String readLine() {
-        String message = String.valueOf(mockMessagesFromClient.get(currentMessagePointer));
-        currentMessagePointer += 1;
-        return message;
-    }
-
-    public void setMockMessagesToReceiveFromClient(List mockMessagesToReceiveFromClient) {
-        this.mockMessagesFromClient = mockMessagesToReceiveFromClient;
-    }
-
-    public void close() {
-        closed = true;
-    }
-
-    public List getMessagesSentToClient() {
-        return messagesSentToClient;
-    }
-
     public boolean isClosed() {
         return closed;
+    }
+
+    public MockSokket(int port) {
+
+    }
+
+    @Override
+    public InputStream getInputStream() {
+        gotInputStream = true;
+        return new MockInputStream();
+    }
+
+    @Override
+    public OutputStream getOutputStream() {
+        gotOutputStream = true;
+        return new MockOutputStream();
+    }
+
+    @Override
+    public void close() {
+        closed = true;
     }
 
 }

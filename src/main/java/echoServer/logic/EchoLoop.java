@@ -1,18 +1,25 @@
 package echoServer.logic;
 
-import echoServer.interfaces.Sokket;
+import echoServer.interfaces.*;
 
 import java.io.IOException;
 
-public class EchoLoop {
+public class EchoLoop implements ClientProtocol {
 
-    public static void run(Sokket sokket) throws IOException {
-        String clientMessage = sokket.readLine();
+    private final Reader reader;
+    private final Writer writer;
+
+    public EchoLoop(Reader reader, Writer writer) {
+        this.reader = reader;
+        this.writer = writer;
+    }
+
+    public void run() throws IOException {
+        String clientMessage = reader.readLine();
         while (!clientMessage.equals("exit!")) {
-            sokket.sendToOutputStream(clientMessage);
-            clientMessage = sokket.readLine();
+            writer.printLine(clientMessage);
+            clientMessage = reader.readLine();
         }
-        sokket.close();
     }
 
 }

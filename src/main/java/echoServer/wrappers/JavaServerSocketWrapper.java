@@ -10,12 +10,17 @@ public class JavaServerSocketWrapper implements ServerSokket {
 
     private ServerSocket serverSocket;
 
-    public void establishAndListenAtPort(int port) throws IOException {
+    JavaServerSocketWrapper(int port) throws IOException {
         serverSocket = new ServerSocket(port);
     }
 
     public Sokket acceptConnectionAndReturnConnectedSokket() throws IOException {
         return new JavaSocketWrapper(serverSocket.accept());
+    }
+
+    @Override
+    public boolean isBoundToAPort() {
+        return serverSocket.isBound();
     }
 
     public void close() throws IOException {
