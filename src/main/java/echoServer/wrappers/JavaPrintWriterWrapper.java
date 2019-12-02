@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 
 public class JavaPrintWriterWrapper implements Writer {
 
-    PrintWriter writer;
+    private final PrintWriter writer;
 
     JavaPrintWriterWrapper(OutputStream outputStream) {
         writer = new PrintWriter(outputStream, true);

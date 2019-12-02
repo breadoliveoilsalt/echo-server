@@ -6,7 +6,7 @@ import echoServer.wrappers.JavaWrapperAppFactory;
 
 import java.io.IOException;
 
-public class App {
+class App {
 
     public static void main(String[] args) throws IOException {
         int port = 8000;

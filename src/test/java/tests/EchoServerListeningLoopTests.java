@@ -25,7 +25,7 @@ public class EchoServerListeningLoopTests {
     public void testInit() {
         initServerSokket();
         initFactory();
-        initEchoServerListentingLoop();
+        initEchoServerListeningLoop();
         setLoopToRunOnce();
     }
 
@@ -44,12 +44,12 @@ public class EchoServerListeningLoopTests {
             .setEchoLoopInitToReturn(echoLoopInit);
     }
 
-    private void initEchoServerListentingLoop() {
+    private void initEchoServerListeningLoop() {
         echoServerListeningLoop = new EchoServerListeningLoop();
     }
 
     private void setLoopToRunOnce() {
-        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, false));
+        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList<>(Arrays.asList(true, false));
         serverSokket.setIsBoundToPort(loopConditionWhetherServerSokketIsBound);
     }
 
@@ -91,12 +91,13 @@ public class EchoServerListeningLoopTests {
         assertEquals(3, serverSokket.getCallCountForAcceptConnectionAndReturnConnectedSokket());
         assertEquals(3, factory.getCallCountForCreateEchoLoopInit());
         assertEquals(3, factory.getCallCountForCreateThreadFor());
+        assertEquals(3, echoLoopInit.getRunCallCount());
         assertEquals(3, thread.getCallCountForStart());
 
     }
 
     private void setLoopToRunThreeTimes() {
-        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList(Arrays.asList(true, true, true, false));
+        ArrayList<Boolean> loopConditionWhetherServerSokketIsBound = new ArrayList<>(Arrays.asList(true, true, true, false));
         serverSokket.setIsBoundToPort(loopConditionWhetherServerSokketIsBound);
     }
 }

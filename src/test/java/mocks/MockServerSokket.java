@@ -22,8 +22,8 @@ public class MockServerSokket implements ServerSokket {
     public boolean isBoundToAPort() {
         return boundToAPort.remove(0);
     }
-    public void setIsBoundToPort(ArrayList<Boolean> loopOccurences) {
-        boundToAPort = loopOccurences;
+    public void setIsBoundToPort(ArrayList<Boolean> loopOccurrences) {
+        boundToAPort = loopOccurrences;
     }
 
     private int callCountForAcceptConnectionAndReturnConnectedSokket = 0;

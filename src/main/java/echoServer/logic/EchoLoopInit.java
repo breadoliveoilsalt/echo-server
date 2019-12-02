@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public class EchoLoopInit implements Runnable, ClientProtocol {
 
-    private Sokket sokket;
-    private AppFactory factory;
+    private final Sokket sokket;
+    private final AppFactory factory;
     private Reader reader;
     private Writer writer;
 

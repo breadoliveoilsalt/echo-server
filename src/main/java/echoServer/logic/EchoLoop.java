@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public class EchoLoop implements ClientProtocol {
 
-    private Reader reader;
-    private Writer writer;
+    private final Reader reader;
+    private final Writer writer;
 
     public EchoLoop(Reader reader, Writer writer) {
         this.reader = reader;

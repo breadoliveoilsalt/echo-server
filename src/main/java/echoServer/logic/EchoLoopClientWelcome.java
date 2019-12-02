@@ -5,11 +5,11 @@ import echoServer.interfaces.Writer;
 
 public class EchoLoopClientWelcome implements ClientProtocol {
 
-    Writer writer;
+    private final Writer writer;
 
     public EchoLoopClientWelcome(Writer writer) {
         this.writer = writer;
-    };
+    }
 
     public void run() {
         writer.printLine(

@@ -8,9 +8,9 @@ import java.io.IOException;
 
 public class EchoServerInit {
 
-    private int port;
-    private ServerSokketProtocol protocol;
-    private AppFactory factory;
+    private final int port;
+    private final ServerSokketProtocol protocol;
+    private final AppFactory factory;
     private ServerSokket serverSokket;
 
     public EchoServerInit(int port, ServerSokketProtocol protocol, AppFactory factory) {

@@ -6,18 +6,18 @@ import java.io.OutputStream;
 
 public interface AppFactory {
 
-    public ServerSokket createServerSokketListeningAtPort(int port) throws IOException;
+    ServerSokket createServerSokketListeningAtPort(int port) throws IOException;
 
-    public Reader createReader(InputStream inputStream);
+    Reader createReader(InputStream inputStream);
 
-    public Writer createWriter(OutputStream outputStream);
+    Writer createWriter(OutputStream outputStream);
 
-    public Runnable createEchoLoopInit(Sokket connectedSokket, AppFactory factory);
+    Runnable createEchoLoopInit(Sokket connectedSokket, AppFactory factory);
 
-    public ClientProtocol createWelcome(Writer writer);
+    ClientProtocol createWelcome(Writer writer);
 
-    public ClientProtocol createEchoLoop(Reader reader, Writer writer);
+    ClientProtocol createEchoLoop(Reader reader, Writer writer);
 
-    public Thread createThreadFor(Runnable runnable);
+    Thread createThreadFor(Runnable runnable);
 
 }

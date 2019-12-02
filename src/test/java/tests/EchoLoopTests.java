@@ -29,7 +29,7 @@ public class EchoLoopTests {
 
     @Test
     public void testRunBeginsALoopThatReadsLineFromClientAndSendsSameMessageBackToClient() throws IOException {
-        reader.setMockMessagesToReceiveFromClient(new ArrayList(Arrays.asList("Hello!", "exit!")));
+        reader.setMockMessagesToReceiveFromClient(new ArrayList<>(Arrays.asList("Hello!", "exit!")));
         expectedSentMessages.add("Hello!");
 
         assertTrue(writer.getMessagesSentToClient().isEmpty());
@@ -39,7 +39,7 @@ public class EchoLoopTests {
     }
 
      @Test public void testRunContinuesTheLoopUntilClientSendsExitMessage() throws IOException {
-        reader.setMockMessagesToReceiveFromClient(new ArrayList(Arrays.asList("Hello!", "How are you?", "Bye!", "exit!")));
+        reader.setMockMessagesToReceiveFromClient(new ArrayList<>(Arrays.asList("Hello!", "How are you?", "Bye!", "exit!")));
         expectedSentMessages.addAll(Arrays.asList("Hello!", "How are you?", "Bye!"));
 
         echoLoop.run();
@@ -48,7 +48,7 @@ public class EchoLoopTests {
      }
 
      @Test public void testRunStopsAsSoonAsClientSendsExitMessage() throws IOException {
-         reader.setMockMessagesToReceiveFromClient(new ArrayList(Arrays.asList("exit!", "Hello!", "How are you?")));
+         reader.setMockMessagesToReceiveFromClient(new ArrayList<>(Arrays.asList("exit!", "Hello!", "How are you?")));
 
          echoLoop.run();
 

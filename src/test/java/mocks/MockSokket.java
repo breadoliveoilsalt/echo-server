@@ -7,13 +7,23 @@ import java.io.OutputStream;
 
 public class MockSokket implements Sokket {
 
-    private int connectedPort;
     private boolean gotInputStream = false;
+    public boolean gotInputStream() {
+        return gotInputStream;
+    }
+
     private boolean gotOutputStream = false;
+    public boolean gotOutputStream() {
+        return gotOutputStream;
+    }
+
     private boolean closed = false;
+    public boolean isClosed() {
+        return closed;
+    }
 
     public MockSokket(int port) {
-        connectedPort = port;
+
     }
 
     @Override
@@ -31,18 +41,6 @@ public class MockSokket implements Sokket {
     @Override
     public void close() {
         closed = true;
-    }
-
-    public boolean isClosed() {
-        return closed;
-    }
-
-    public boolean gotInputStream() {
-        return gotInputStream;
-    }
-
-    public boolean gotOutputStream() {
-        return gotOutputStream;
     }
 
 }

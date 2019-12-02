@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 
 public class JavaBufferedReaderWrapper implements Reader {
 
-    BufferedReader reader;
+    private final BufferedReader reader;
 
     JavaBufferedReaderWrapper(InputStream inputStream) {
         reader = new BufferedReader(new InputStreamReader(inputStream));

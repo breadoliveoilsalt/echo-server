@@ -2,7 +2,7 @@ package mocks;
 
 public class MockThread extends Thread {
 
-    Runnable mockEchoInit;
+    private final Runnable mockEchoInit;
 
     public MockThread(Runnable mockEchoInit) {
         this.mockEchoInit = mockEchoInit;
@@ -13,6 +13,7 @@ public class MockThread extends Thread {
         return callCountForStart;
     }
 
+    @Override
     public void start() {
         callCountForStart += 1;
         mockEchoInit.run();

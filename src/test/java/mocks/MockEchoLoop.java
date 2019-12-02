@@ -4,8 +4,6 @@ import echoServer.interfaces.ClientProtocol;
 import echoServer.interfaces.Reader;
 import echoServer.interfaces.Writer;
 
-import java.io.IOException;
-
 public class MockEchoLoop implements ClientProtocol {
 
     private int callCountForRun = 0;
@@ -16,7 +14,8 @@ public class MockEchoLoop implements ClientProtocol {
     public MockEchoLoop(Reader reader, Writer writer) {
     }
 
-    public void run() throws IOException {
+    @Override
+    public void run() {
        callCountForRun += 1;
     }
 

@@ -7,9 +7,9 @@ import java.net.Socket;
 
 public class JavaSocketWrapper implements Sokket {
 
-    private Socket socket;
+    private final Socket socket;
 
-    public JavaSocketWrapper(Socket socket) throws IOException {
+    public JavaSocketWrapper(Socket socket) {
         this.socket = socket;
     }
 

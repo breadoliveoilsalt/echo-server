@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MockWriter implements Writer {
 
-    private List<String> messagesSentToClient = new ArrayList<>();
+    private final List<String> messagesSentToClient = new ArrayList<>();
     public List getMessagesSentToClient() {
         return messagesSentToClient;
     }
