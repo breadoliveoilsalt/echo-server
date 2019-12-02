@@ -63,10 +63,11 @@ public class EchoLoopInitTests {
     }
 
     @Test
-    public void testRunRunsTheEchoLoop() {
+    public void testRunInstantiatesAndRunsTheEchoLoop() {
         echoLoopInit.run();
 
-        assertTrue(echoLoop.wasRun());
+        assertEquals(1, factory.getCallCountForCreateEchoLoop());
+        assertEquals(1, echoLoop.getCallCountForRun());
     }
 
     @Test

@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
-
 public class EchoServerInitTests {
 
     private int samplePort = 8000;
@@ -22,7 +21,7 @@ public class EchoServerInitTests {
     @Before
     public void testInit() {
         protocol = new MockServerSokketProtocol();
-        serverSokket = new MockServerSokket(samplePort);
+        serverSokket = new MockServerSokket();
         factory = new MockAppFactory();
         factory.setServerSokketToReturn(serverSokket);
         echoServer = new EchoServerInit(samplePort, protocol, factory);
@@ -30,21 +29,20 @@ public class EchoServerInitTests {
 
     @Test
     public void testStartInstantiatesAListeningServerSokket() throws IOException {
-        assertFalse(factory.createdServerSokket());
+        assertEquals(0, factory.getCallCountForCreateServerSokket());
 
         echoServer.start();
 
-        assertTrue(factory.createdServerSokket());
-        assertSame(serverSokket, echoServer.getServerSokket());
+        assertEquals(1, factory.getCallCountForCreateServerSokket());
     }
 
     @Test
     public void testStartTellsTheProtocolToRunWithTheServerSokketAndTheFactory() throws IOException {
-        assertFalse(protocol.wasRun());
+        assertEquals(0, protocol.getCallCountForRun());
 
         echoServer.start();
 
-        assertTrue(protocol.wasRun());
+        assertEquals(1, protocol.getCallCountForRun());
         assertSame(serverSokket, protocol.getServerSokketArgument());
         assertSame(factory, protocol.getFactoryArgument());
     }
@@ -53,7 +51,7 @@ public class EchoServerInitTests {
     public void testStartClosesTheServerSokketAfterTheProtocolIsRun() throws IOException {
         echoServer.start();
 
-        assertTrue(protocol.wasRun());
+        assertEquals(1, protocol.getCallCountForRun());
         assertTrue(serverSokket.isClosed());
     }
 

@@ -2,8 +2,6 @@ package mocks;
 
 import echoServer.interfaces.ClientProtocol;
 
-import java.io.IOException;
-
 public class MockClientWelcome implements ClientProtocol {
 
     int callCountForRun = 0;
@@ -12,7 +10,7 @@ public class MockClientWelcome implements ClientProtocol {
     }
 
     @Override
-    public void run() throws IOException {
+    public void run() {
         callCountForRun += 1;
 
     }

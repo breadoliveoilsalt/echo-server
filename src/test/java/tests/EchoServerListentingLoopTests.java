@@ -18,9 +18,9 @@ public class EchoServerListentingLoopTests {
     private int samplePort = 8000;
     private MockServerSokket serverSokket;
     private MockAppFactory factory;
-    private ServerSokketProtocol echoServerListeningLoop;
-    private Runnable echoLoopInit;
+    private MockEchoLoopInit echoLoopInit;
     private MockThread thread;
+    private ServerSokketProtocol echoServerListeningLoop;
 
     @Before
     public void testInit() {
@@ -31,18 +31,17 @@ public class EchoServerListentingLoopTests {
 
     private void initServerSokket() {
         Sokket sokket = new MockSokket(samplePort);
-        serverSokket = new MockServerSokket(samplePort);
+        serverSokket = new MockServerSokket();
         serverSokket.setMockSokketToReturnFollowingConnection(sokket);
     }
 
     private void initFactory() {
         factory = new MockAppFactory();
-        echoServerListeningLoop = new EchoServerListeningLoop();
-        thread = new MockThread();
-//        note I don't seem to need this
-//        and this will dictate what I need in the factory
-//        factory.setEchoLoopInitToReturn(echoLoopInit);
+        echoLoopInit = new MockEchoLoopInit();
+        thread = new MockThread(echoLoopInit);
         factory.setThreadToReturn(thread);
+        factory.setEchoLoopInitToReturn(echoLoopInit);
+        echoServerListeningLoop = new EchoServerListeningLoop();
     }
 
     private void setLoopToRunOnce() {
@@ -75,6 +74,7 @@ public class EchoServerListentingLoopTests {
 
         echoServerListeningLoop.run(serverSokket, factory);
 
+        assertEquals(1, echoLoopInit.getRunCallCount());
         assertEquals(1, thread.getCallCountForStart());
     }
 

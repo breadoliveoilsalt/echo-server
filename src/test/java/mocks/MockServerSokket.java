@@ -8,17 +8,25 @@ import java.util.List;
 
 public class MockServerSokket implements ServerSokket {
 
-    private int port;
     private Sokket connectedSokket = null;
-    private boolean closed = false;
-    private List<Boolean> boundToAPort;
+    public void setMockSokketToReturnFollowingConnection(Sokket sokket) {
+        connectedSokket = sokket;
+    }
 
-    public MockServerSokket(int port) {
-        this.port = port;
+    private boolean closed = false;
+    public boolean isClosed() {
+        return closed;
+    }
+
+    private List<Boolean> boundToAPort;
+    public boolean isBoundToAPort() {
+        return boundToAPort.remove(0);
+    }
+    public void setIsBoundToPort(ArrayList<Boolean> loopOccurences) {
+        boundToAPort = loopOccurences;
     }
 
     private int callCountForAcceptConnectionAndReturnConnectedSokket = 0;
-
     public int getCallCountForAcceptConnectionAndReturnConnectedSokket() {
         return callCountForAcceptConnectionAndReturnConnectedSokket;
     }
@@ -32,31 +40,6 @@ public class MockServerSokket implements ServerSokket {
     @Override
     public void close() {
         closed = true;
-    }
-
-    public boolean isClosed() {
-        return closed;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setMockSokketToReturnFollowingConnection(Sokket sokket) {
-        connectedSokket = sokket;
-    }
-
-    public Sokket getConnectedSokket() {
-        return connectedSokket;
-    }
-
-    @Override
-    public boolean isBoundToAPort() {
-        return boundToAPort.remove(0);
-    }
-
-    public void setIsBoundToPort(ArrayList<Boolean> loopOccurences) {
-        boundToAPort = loopOccurences;
     }
 }
 
