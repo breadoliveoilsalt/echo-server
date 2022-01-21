@@ -12,15 +12,16 @@ public class EchoLoopInit implements Runnable, ClientProtocol {
     private Writer writer;
 
     public EchoLoopInit(Sokket sokket, AppFactory factory) {
-        this.sokket = sokket;
+        this.sokket = sokket;    
+        
         this.factory = factory;
     }
 
     public void run() {
         try {
-            initReaderAndWriter();
-            welcomeClient();
-            runEchoLoop();
+        initReaderAndWriter();
+        welcomeClient();
+        runEchoLoop();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
