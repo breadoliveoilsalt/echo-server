@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-
 public class JavaWrapperAppFactory implements AppFactory {
 
     public JavaServerSocketWrapper createServerSokketListeningAtPort(int port) throws IOException {
@@ -29,7 +28,7 @@ public class JavaWrapperAppFactory implements AppFactory {
     }
 
     public ClientProtocol createWelcome(Writer writer) {
-       return new EchoLoopClientWelcome(writer);
+        return new EchoLoopClientWelcome(writer);
     }
 
     public ClientProtocol createEchoLoop(Reader reader, Writer writer) {
