@@ -11,6 +11,19 @@ function printNoCheckstyleAndExit {
 
 }
 
+function check {
+  echo "----- \nStarting Checkstyle..."
+  checkstyle -c checkstyleChecks.xml src/main/ >/dev/null 2>&1
+}
+
+function printCheckFailed {
+  echo "----- \nCheckstyle found errors. Commit cancelled."
+  echo "Run \`checkstyle -c checkstyleChecks.xml src/main/\` to see errors."
+  exit 1
+}
+
 checkForCheckstyle || printNoCheckstyleAndExit
 
-echo "Running Git Pre-Commit Hook"
+check || printCheckFailed
+
+echo "----- \nCheckstyle complete!\n-----"
